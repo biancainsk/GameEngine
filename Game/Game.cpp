@@ -4,16 +4,20 @@
 
 #include <bits/stdc++.h>
 
-Game::Game()
+void Game::initialize(int screenW, int screenH)
 {
-    m_enemies.emplace_back();
-    m_enemies.emplace_back();
+    m_enemySpawner = EnemySpawner(screenW, screenH);
 }
 
 void Game::update(float dt, const InputManager& input)
 {
     m_player.update(dt, input);
     handleShooting(input);
+
+    if (m_enemySpawner.shouldSpawn(dt))
+    {
+        m_enemies.push_back(m_enemySpawner.spawnEnemy());
+    }
 
     updateEnemies(dt);
     updateBullets(dt);

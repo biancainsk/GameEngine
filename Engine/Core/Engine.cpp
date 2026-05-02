@@ -23,6 +23,7 @@ Engine::~Engine()
 
 void Engine::run(IGame& game)
 {
+    game.initialize(m_window->getWindowWidth(), m_window->getWindowHeight());
     uint32_t lastTime = SDL_GetTicks();
 
     while (m_isRunning)

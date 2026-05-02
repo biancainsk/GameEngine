@@ -10,6 +10,12 @@ Enemy::Enemy() : GameObject(Position{200.0f, 200.0f},
                             Color{255, 0, 0})
 {}
 
+Enemy::Enemy(Position pos) : GameObject(pos, Size{30.0f, 30.0f},
+                             Velocity{20.0f, 20.0f},
+                             ShapeType{ShapeType::Triangle},
+                             Color{255, 0, 0})
+{}
+
 void Enemy::update(float dt, const Player& player)
 {
     if (getPosition().x < player.getPosition().x)

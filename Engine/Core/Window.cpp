@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 Window::Window(const std::string& windowName, int windowWidth, int windowHeight)
+                : m_windowWidth(windowWidth), m_windowHeight(windowHeight)
 {
     SDL_Init(SDL_INIT_VIDEO);
     m_window = SDL_CreateWindow(windowName.c_str(),
@@ -42,4 +43,14 @@ void Window::pollEvents(bool& running)
             running = false;
         }
     }
+}
+
+int Window::getWindowWidth() const
+{
+    return m_windowWidth;
+}
+
+int Window::getWindowHeight() const
+{
+    return m_windowHeight;
 }

@@ -6,6 +6,7 @@
 #include <Enemy.h>
 #include <Bullet.h>
 #include <Systems/CollisionSystem.h>
+#include <EnemySpawner.h>
 
 #include <vector>
 
@@ -15,8 +16,7 @@ class Renderer;
 class Game : public IGame
 {
 public:
-    Game();
-
+    void initialize(int screenW, int screenH) override;
     void update(float dt, const InputManager& input) override;
     void render(Renderer& renderer) override;
 
@@ -25,6 +25,7 @@ private:
     std::vector<Enemy> m_enemies;
     std::vector<Bullet> m_bullets;
     CollisionSystem m_collision;
+    EnemySpawner m_enemySpawner;
 
     bool m_spaceWasPressed = false;
 

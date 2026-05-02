@@ -13,8 +13,14 @@ public:
     SDL_Window* getNativeWindow() const;
     void pollEvents(bool& running);
 
+    int getWindowWidth() const;
+    int getWindowHeight() const;
+
 private:
     SDL_Window* m_window = nullptr;
+
+    int m_windowWidth;
+    int m_windowHeight;
 };
 
 #endif

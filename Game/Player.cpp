@@ -41,5 +41,6 @@ void Player::render(Renderer& renderer)
 
 Bullet Player::shoot() const
 {
-    return Bullet(getPosition(), getVelocity());
+    Velocity bulletVelocity = {getVelocity().x * 2, getVelocity().y * 2};
+    return Bullet(getPosition(), bulletVelocity);
 }
