@@ -1,5 +1,7 @@
-#include "Game.h"
-#include "../Engine/Core/Engine.h"
+#include <Game.h>
+#include <Systems/InputManager.h>
+#include <Core/Renderer.h>
+
 #include <bits/stdc++.h>
 
 Game::Game()
@@ -11,7 +13,6 @@ Game::Game()
 void Game::update(float dt, const InputManager& input)
 {
     m_player.update(dt, input);
-
     handleShooting(input);
 
     updateEnemies(dt);

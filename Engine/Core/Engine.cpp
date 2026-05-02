@@ -1,9 +1,9 @@
-#include "Engine.h"
-#include "IGame.h"
-#include "Window.h"
-#include "Renderer.h"
-#include "../Systems/InputManager.h"
-#include "../Systems/CollisionSystem.h"
+#include <Core/Engine.h>
+#include <Core/IGame.h>
+#include <Core/Window.h>
+#include <Core/Renderer.h>
+#include <Systems/InputManager.h>
+#include <Systems/CollisionSystem.h>
 
 Engine::Engine(const std::string& windowName, int windowWidth, int windowHeight)
 {

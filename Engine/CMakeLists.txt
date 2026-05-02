@@ -1,13 +1,9 @@
-add_library(Engine)
-
-target_sources(Engine
-    PRIVATE
-        Core/Engine.cpp
-        Core/Renderer.cpp
-        Core/Window.cpp
-
-        Systems/InputManager.cpp
-        Systems/CollisionSystem.cpp
+add_library(Engine
+            Core/Engine.cpp
+            Core/Renderer.cpp
+            Core/Window.cpp
+            Systems/InputManager.cpp
+            Systems/CollisionSystem.cpp
 )
 
 target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

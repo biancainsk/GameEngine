@@ -1,8 +1,8 @@
 #ifndef IGAME_H
 #define IGAME_H
 
-class Renderer;
 class InputManager;
+class Renderer;
 
 class IGame
 {

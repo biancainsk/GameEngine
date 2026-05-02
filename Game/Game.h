@@ -1,14 +1,16 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../Engine/Core/IGame.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Bullet.h"
-#include "../Engine/Systems/InputManager.h"
-#include "../Engine/Systems/CollisionSystem.h"
+#include <Core/IGame.h>
+#include <Player.h>
+#include <Enemy.h>
+#include <Bullet.h>
+#include <Systems/CollisionSystem.h>
 
 #include <vector>
+
+class InputManager;
+class Renderer;
 
 class Game : public IGame
 {
@@ -22,8 +24,6 @@ private:
     Player m_player;
     std::vector<Enemy> m_enemies;
     std::vector<Bullet> m_bullets;
-
-    // InputManager m_input;
     CollisionSystem m_collision;
 
     bool m_spaceWasPressed = false;

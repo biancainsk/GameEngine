@@ -1,5 +1,5 @@
-#include "Bullet.h"
-#include "../Engine/Core/Renderer.h"
+#include <Bullet.h>
+#include <Core/Renderer.h>
 
 Bullet::Bullet() : GameObject(Position{100.0f, 100.0f},
                               Size{10.0f, 5.0f},

@@ -2,7 +2,7 @@
 #define RENDERER_H
 
 #include <SDL2/SDL.h>
-#include "Globals.h"
+#include <Core/Globals.h>
 
 class Window;
 
@@ -17,8 +17,6 @@ public:
     
     void drawRectangle(Position pos, Size size);
     void drawTriangle(Position pos, Size size);
-
-    // SDL_Renderer* renderer() const { return m_renderer; }
 
 private:
     SDL_Renderer* m_renderer = nullptr;

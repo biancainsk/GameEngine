@@ -1,4 +1,5 @@
-#include "Window.h"
+#include <Core/Window.h>
+
 #include <stdexcept>
 
 Window::Window(const std::string& windowName, int windowWidth, int windowHeight)

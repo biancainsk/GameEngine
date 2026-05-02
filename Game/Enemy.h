@@ -1,9 +1,10 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "GameObject.h"
+#include <GameObject.h>
 
 class Player;
+class Renderer;
 
 class Enemy : public GameObject
 {

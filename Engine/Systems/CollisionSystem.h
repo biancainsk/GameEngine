@@ -1,7 +1,7 @@
 #ifndef COLLISION_SYSTEM_H
 #define COLLISION_SYSTEM_H
 
-#include "../Core/Globals.h"
+#include <Core/Globals.h>
 
 class CollisionSystem
 {

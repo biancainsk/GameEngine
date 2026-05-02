@@ -1,7 +1,7 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
-#include "../Engine/Core/Globals.h"
+#include <Core/Globals.h>
 
 class Renderer;
 

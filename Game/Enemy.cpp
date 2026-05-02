@@ -1,7 +1,7 @@
-#include "Enemy.h"
+#include <Enemy.h>
 
-#include "Player.h"
-#include "../Engine/Core/Renderer.h"
+#include <Player.h>
+#include <Core/Renderer.h>
 
 Enemy::Enemy() : GameObject(Position{200.0f, 200.0f},
                             Size{30.0f, 30.0f},

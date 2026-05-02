@@ -9,14 +9,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-# Qt modules
-# find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Network)
-# find_package(SDL2 REQUIRED)
-
 # Add source directories
 add_subdirectory(Engine)
 add_subdirectory(Game)
 
 add_executable(main main.cpp)
-
 target_link_libraries(main PRIVATE Engine Game)

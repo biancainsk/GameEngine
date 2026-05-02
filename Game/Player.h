@@ -1,9 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "GameObject.h"
+#include <GameObject.h>
 
 class InputManager;
+class Renderer;
 class Bullet;
 
 class Player : public GameObject

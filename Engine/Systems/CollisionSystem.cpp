@@ -1,4 +1,4 @@
-#include "CollisionSystem.h"
+#include <Systems/CollisionSystem.h>
 
 bool CollisionSystem::intersects(Position Entity1Pos, Position Entity2Pos,
                                  Size Entity1Size, Size Entity2Size)

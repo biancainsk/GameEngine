@@ -1,5 +1,5 @@
-#include "../Engine/Core/Engine.h"
-#include "../Game/Game.h"
+#include <Core/Engine.h>
+#include <Game.h>
 
 #include <iostream>
 

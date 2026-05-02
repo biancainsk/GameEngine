@@ -1,14 +1,13 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include <SDL2/SDL.h>
 #include <string>
 
+class IGame;
 class Window;
 class Renderer;
 class InputManager;
 class CollisionSystem;
-class IGame;
 
 class Engine
 {

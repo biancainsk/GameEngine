@@ -1,5 +1,6 @@
-#include "Renderer.h"
-#include "Window.h"
+#include <Core/Renderer.h>
+#include <Core/Window.h>
+
 #include <stdexcept>
 
 Renderer::Renderer(const Window& window)
