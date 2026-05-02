@@ -7,7 +7,6 @@
  */
 enum class ShapeType
 {
-    None,
     Rectangle,
     Triangle
 };
@@ -43,6 +42,14 @@ struct Velocity
     Velocity(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
     float x;
     float y;
+};
+
+struct Color
+{
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a = 255;
 };
 
 #endif

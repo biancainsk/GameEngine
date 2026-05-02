@@ -7,7 +7,8 @@
 Player::Player() : GameObject(Position{100.0f, 100.0f},
                               Size{30.0f, 30.0f},
                               Velocity{250.0f, 250.0f},
-                              ShapeType{ShapeType::Rectangle})
+                              ShapeType{ShapeType::Rectangle},
+                              Color{0, 255, 0})
 {}
 
 void Player::update(float dt, const InputManager& input)
@@ -35,7 +36,7 @@ void Player::update(float dt, const InputManager& input)
 
 void Player::render(Renderer& renderer)
 {
-    renderer.drawRectangle(getPosition(), getSize());
+    renderer.drawEntity(getPosition(), getSize(), getShape(), getColor());
 }
 
 Bullet Player::shoot() const

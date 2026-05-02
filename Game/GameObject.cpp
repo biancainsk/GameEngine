@@ -1,7 +1,7 @@
 #include <GameObject.h>
 
-GameObject::GameObject(Position pos, Size size, Velocity velocity, ShapeType shape)
-        : m_pos(pos), m_size(size), m_velocity(velocity), m_shape(shape)
+GameObject::GameObject(Position pos, Size size, Velocity velocity, ShapeType shape, Color color)
+        : m_pos(pos), m_size(size), m_velocity(velocity), m_shape(shape), m_color(color)
 {
 }
 
@@ -13,6 +13,16 @@ bool GameObject::isAlive() const
 void GameObject::destroy()
 {
     m_alive = false;
+}
+
+ShapeType GameObject::getShape() const
+{
+    return m_shape;
+}
+
+void GameObject::setShape(ShapeType shape)
+{
+    m_shape = shape;
 }
 
 Position GameObject::getPosition() const
@@ -45,14 +55,14 @@ void GameObject::setVelocity(Velocity velocity)
     m_velocity = velocity;
 }
 
-ShapeType GameObject::getShape() const
+Color GameObject::getColor() const
 {
-    return m_shape;
+    return m_color;
 }
 
-void GameObject::setShape(ShapeType shape)
+void GameObject::setColor(Color color)
 {
-    m_shape = shape;
+    m_color = color;
 }
 
 void GameObject::move(float dx, float dy)

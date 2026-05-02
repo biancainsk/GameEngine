@@ -37,6 +37,27 @@ void Renderer::present()
 	SDL_RenderPresent(m_renderer);
 }
 
+void Renderer::drawEntity(Position pos, Size size, ShapeType shape, Color color)
+{
+    switch (shape)
+    {
+        case ShapeType::Rectangle:
+        {
+            drawRectangle(pos, size);
+            break;
+        }
+        case ShapeType::Triangle:
+        {
+            drawTriangle(pos, size);
+            break;
+        }
+        default:
+        {
+            drawRectangle(pos, size);
+        }
+    }
+}
+
 void Renderer::drawRectangle(Position pos, Size size)
 {
     SDL_FRect rect = {pos.x, pos.y, size.width, size.height};

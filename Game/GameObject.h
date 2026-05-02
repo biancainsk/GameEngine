@@ -13,7 +13,7 @@ class GameObject
 {
 public:
 
-    GameObject(Position pos, Size size, Velocity velocity, ShapeType shape);
+    GameObject(Position pos, Size size, Velocity velocity, ShapeType shape, Color color);
 
     /**
      * @brief Construct a new Game Object object
@@ -48,6 +48,9 @@ public:
      */
     void destroy();
 
+    ShapeType getShape() const;
+    void setShape(ShapeType shape);
+
     Position getPosition() const;
     void setPosition(Position pos);
 
@@ -57,8 +60,8 @@ public:
     Velocity getVelocity() const;
     void setVelocity(Velocity velocity);
 
-    ShapeType getShape() const;
-    void setShape(ShapeType shape);
+    Color getColor() const;
+    void setColor(Color color);
 
     /**
      * @brief 
@@ -78,7 +81,8 @@ private:
     Position m_pos;
     Size m_size;
     Velocity m_velocity;
-    ShapeType m_shape = ShapeType::None;
+    ShapeType m_shape;
+    Color m_color;
 };
 
 #endif

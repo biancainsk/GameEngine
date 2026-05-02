@@ -6,7 +6,8 @@
 Enemy::Enemy() : GameObject(Position{200.0f, 200.0f},
                             Size{30.0f, 30.0f},
                             Velocity{20.0f, 20.0f},
-                            ShapeType{ShapeType::Triangle})
+                            ShapeType{ShapeType::Triangle},
+                            Color{255, 0, 0})
 {}
 
 void Enemy::update(float dt, const Player& player)
@@ -32,5 +33,5 @@ void Enemy::update(float dt, const Player& player)
 
 void Enemy::render(Renderer& renderer)
 {
-    renderer.drawTriangle(getPosition(), getSize());
+    renderer.drawEntity(getPosition(), getSize(), getShape(), getColor());
 }
