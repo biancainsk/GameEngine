@@ -35,14 +35,6 @@ void GameObject::setPosition(Position pos)
     m_pos = pos;
 }
 
-// Position GameObject::getCenter() const
-// {
-//     return {
-//         m_pos.x + m_size.width / 2.0f,
-//         m_pos.y + m_size.height / 2.0f
-//     };
-// }
-
 Size GameObject::getSize() const
 {
     return m_size;

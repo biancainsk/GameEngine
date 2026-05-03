@@ -23,15 +23,12 @@ Renderer::~Renderer()
     }
 }
 
-
-// Erases everything drawn in the screen
 void Renderer::clear()
 {
 	SDL_SetRenderDrawColor(m_renderer, 20, 20, 20, 255);
 	SDL_RenderClear(m_renderer);
 }
 
-// Draws the content on the screen
 void Renderer::present()
 {
 	SDL_RenderPresent(m_renderer);

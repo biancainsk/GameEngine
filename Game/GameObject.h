@@ -53,7 +53,6 @@ public:
 
     Position getPosition() const;
     void setPosition(Position pos);
-    // Position getCenter() const;
 
     Size getSize() const;
     void setSize(Size size);
