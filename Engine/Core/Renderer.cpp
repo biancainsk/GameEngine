@@ -43,35 +43,34 @@ void Renderer::drawEntity(Position pos, Size size, ShapeType shape, Color color)
     {
         case ShapeType::Rectangle:
         {
-            drawRectangle(pos, size);
+            drawRectangle(pos, size, color);
             break;
         }
         case ShapeType::Triangle:
         {
-            drawTriangle(pos, size);
+            drawTriangle(pos, size, color);
             break;
         }
         default:
         {
-            drawRectangle(pos, size);
+            drawRectangle(pos, size, color);
         }
     }
 }
 
-void Renderer::drawRectangle(Position pos, Size size)
+void Renderer::drawRectangle(Position pos, Size size, Color color)
 {
-    SDL_FRect rect = {pos.x, pos.y, size.width, size.height};
+    SDL_FRect rect = {pos.x - size.width / 2.0f, pos.y - size.height / 2.0f, size.width, size.height};
 
-    // Sets the color to red (Red=0, Green=255, Blue=0, Alpha=255)
-    SDL_SetRenderDrawColor(m_renderer, 0, 255, 0, 255);
+    SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRectF(m_renderer, &rect);
 }
 
-void Renderer::drawTriangle(Position pos, Size size)
+void Renderer::drawTriangle(Position pos, Size size, Color color)
 {
-    SDL_FPoint points[3] = { {pos.x, pos.y},
-                            {pos.x + size.width, pos.y},
-                            {pos.x + size.width / 2, pos.y - size.height}
+    SDL_FPoint points[3] = {{pos.x, pos.y - size.height / 2.0f},
+                            {pos.x - size.width / 2.0f, pos.y + size.height / 2.0f},
+                            {pos.x + size.width / 2.0f, pos.y + size.height / 2.0f}
     };
 
     SDL_Vertex verts[3];
@@ -80,13 +79,9 @@ void Renderer::drawTriangle(Position pos, Size size)
     verts[1].position = points[1];
     verts[2].position = points[2];
 
-    // Sets the color to red (Red=255, Green=0, Blue=0, Alpha=255)
-    // SDL_SetRenderDrawColor(m_renderer, 255, 0, 0, 255);
-    // same color for all → filled triangle
-    SDL_Color color = {255, 0, 0, 255};
+    SDL_Color _color = {color.r, color.g, color.b, color.a};
     for (int i = 0; i < 3; ++i) {
-        verts[i].color = color;
-        verts[i].tex_coord = {0, 0}; // unused
+        verts[i].color = _color;
     }
     SDL_RenderGeometry(m_renderer, nullptr, verts, 3, nullptr, 0);
 }

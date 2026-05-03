@@ -18,8 +18,8 @@ enum class ShapeType
 struct Position
 {
     Position(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
-    float x;
-    float y;
+    float x;   // Center X
+    float y;   // Center Y
 };
 
 /**
