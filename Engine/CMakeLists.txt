@@ -2,6 +2,7 @@ add_library(Engine
             Core/Engine.cpp
             Core/Renderer.cpp
             Core/Window.cpp
+            Core/GameObject.cpp
             Systems/InputManager.cpp
             Systems/CollisionSystem.cpp
 )

@@ -1,4 +1,4 @@
-#include <GameObject.h>
+#include <Core/GameObject.h>
 
 GameObject::GameObject(Position pos, Size size, Velocity velocity, ShapeType shape, Color color)
         : m_pos(pos), m_size(size), m_velocity(velocity), m_shape(shape), m_color(color)

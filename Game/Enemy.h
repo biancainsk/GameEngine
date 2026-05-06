@@ -1,7 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include <GameObject.h>
+#include <Core/GameObject.h>
 
 class Player;
 class Renderer;

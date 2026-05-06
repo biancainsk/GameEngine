@@ -53,7 +53,7 @@ void Game::render(Renderer& renderer)
 void Game::reset()
 {
     m_state = GameState::Play;
-    
+
     m_player = Player();
     m_enemies.clear();
     m_bullets.clear();
@@ -93,12 +93,7 @@ void Game::handleCollisions()
     {
         for (Enemy& enemy : m_enemies)
         {
-            const Position& bulletPos = bullet.getPosition();
-            const Position& enemyPos = enemy.getPosition();
-            const Size& bulletSize = bullet.getSize();
-            const Size& enemySize = enemy.getSize();
-
-            bool collision = m_collision.intersects(bulletPos, enemyPos, bulletSize, enemySize);
+            bool collision = m_collision.intersects(bullet, enemy);
 
             if(collision)
             {
@@ -117,12 +112,7 @@ void Game::handleCollisions()
     // Add logic if the enemy catches the player to end game
     for (Enemy& enemy : m_enemies)
     {
-        const Position& playerPos = m_player.getPosition();
-        const Position& enemyPos = enemy.getPosition();
-        const Size& playerSize = m_player.getSize();
-        const Size& enemySize = enemy.getSize();
-
-        bool collision = m_collision.intersects(playerPos, enemyPos, playerSize, enemySize);
+        bool collision = m_collision.intersects(m_player, enemy);
         if(collision)
         {
             m_player.destroy();

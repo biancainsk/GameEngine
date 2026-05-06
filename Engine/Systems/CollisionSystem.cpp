@@ -1,10 +1,16 @@
 #include <Systems/CollisionSystem.h>
+#include <Core/Globals.h>
 
-bool CollisionSystem::intersects(Position Entity1Pos, Position Entity2Pos,
-                                 Size Entity1Size, Size Entity2Size)
+bool CollisionSystem::intersects(const GameObject& entity1, const GameObject& entity2)
 {
-    return Entity1Pos.x < Entity2Pos.x + Entity2Size.width &&
-           Entity1Pos.x + Entity1Size.width > Entity2Pos.x &&
-           Entity1Pos.y < Entity2Pos.y + Entity2Size.height &&
-           Entity1Pos.y + Entity1Size.height > Entity2Pos.y;
+    Position entity1Pos = entity1.getPosition();
+    Position entity2Pos = entity2.getPosition();
+
+    Size entity1Size = entity1.getSize();
+    Size entity2Size = entity2.getSize();
+
+    return entity1Pos.x < entity2Pos.x + entity2Size.width &&
+           entity1Pos.x + entity1Size.width > entity2Pos.x &&
+           entity1Pos.y < entity2Pos.y + entity2Size.height &&
+           entity1Pos.y + entity1Size.height > entity2Pos.y;
 }

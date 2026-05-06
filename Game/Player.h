@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <GameObject.h>
+#include <Core/GameObject.h>
 
 class InputManager;
 class Renderer;

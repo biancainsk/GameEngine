@@ -1,6 +1,5 @@
 add_library(Game
             Game.cpp
-            GameObject.cpp
             Player.cpp
             Enemy.cpp
             Bullet.cpp
