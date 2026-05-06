@@ -11,6 +11,15 @@ void Game::initialize(int screenW, int screenH)
 
 void Game::update(float dt, const InputManager& input)
 {
+    if (m_state == GameState::GameOver)
+    {
+        if (input.isKeyPressed(SDL_SCANCODE_R))
+        {
+            reset();
+        }
+
+        return;
+    }
     m_player.update(dt, input);
     handleShooting(input);
 
@@ -39,6 +48,15 @@ void Game::render(Renderer& renderer)
     {
         bullet.render(renderer);
     }
+}
+
+void Game::reset()
+{
+    m_state = GameState::Play;
+    
+    m_player = Player();
+    m_enemies.clear();
+    m_bullets.clear();
 }
 
 void Game::handleShooting(const InputManager& input)
@@ -86,7 +104,29 @@ void Game::handleCollisions()
             {
                 bullet.destroy();
                 enemy.destroy();
+                return;
             }
+        }
+        // Add logic if the bullet exits the window to be cleared up
+        if (false)
+        {
+            bullet.destroy();
+        }
+    }
+
+    // Add logic if the enemy catches the player to end game
+    for (Enemy& enemy : m_enemies)
+    {
+        const Position& playerPos = m_player.getPosition();
+        const Position& enemyPos = enemy.getPosition();
+        const Size& playerSize = m_player.getSize();
+        const Size& enemySize = enemy.getSize();
+
+        bool collision = m_collision.intersects(playerPos, enemyPos, playerSize, enemySize);
+        if(collision)
+        {
+            m_player.destroy();
+            return;
         }
     }
 }
@@ -102,4 +142,9 @@ void Game::removeDeadObjects()
     {
         return !enemy.isAlive();
     }), m_enemies.end());
+
+    if (!m_player.isAlive())
+    {
+        m_state = GameState::GameOver;
+    }
 }

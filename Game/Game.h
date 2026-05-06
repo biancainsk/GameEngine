@@ -13,12 +13,19 @@
 class InputManager;
 class Renderer;
 
+enum class GameState
+{
+    GameOver,
+    Play
+};
+
 class Game : public IGame
 {
 public:
     void initialize(int screenW, int screenH) override;
     void update(float dt, const InputManager& input) override;
     void render(Renderer& renderer) override;
+    void reset();
 
 private:
     Player m_player;
@@ -28,6 +35,7 @@ private:
     EnemySpawner m_enemySpawner;
 
     bool m_spaceWasPressed = false;
+    GameState m_state = GameState::Play;
 
     void updateBullets(float dt);
     void updateEnemies(float dt);
