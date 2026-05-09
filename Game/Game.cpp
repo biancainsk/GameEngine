@@ -6,6 +6,9 @@
 
 void Game::initialize(int screenW, int screenH)
 {
+    m_screenWidth = screenW;
+    m_screenHeight = screenH;
+
     m_enemySpawner = EnemySpawner(screenW, screenH);
 }
 
@@ -60,7 +63,7 @@ void Game::reset()
 }
 
 void Game::handleShooting(const InputManager& input)
-{
+{      
     bool spaceIsPressed = input.isKeyPressed(SDL_SCANCODE_SPACE);
 
     if (spaceIsPressed && !m_spaceWasPressed)
@@ -103,7 +106,7 @@ void Game::handleCollisions()
             }
         }
         // Add logic if the bullet exits the window to be cleared up
-        if (false)
+        if (bullet.getPosition().x > m_screenWidth || bullet.getPosition().y > m_screenHeight)
         {
             bullet.destroy();
         }
@@ -123,6 +126,11 @@ void Game::handleCollisions()
 
 void Game::removeDeadObjects()
 {
+    if (!m_player.isAlive())
+    {
+        m_state = GameState::GameOver;
+    }
+
     m_bullets.erase(std::remove_if(m_bullets.begin(), m_bullets.end(), [](const Bullet& bullet)
     {
         return !bullet.isAlive();
@@ -132,9 +140,4 @@ void Game::removeDeadObjects()
     {
         return !enemy.isAlive();
     }), m_enemies.end());
-
-    if (!m_player.isAlive())
-    {
-        m_state = GameState::GameOver;
-    }
 }

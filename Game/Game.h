@@ -34,6 +34,9 @@ private:
     CollisionSystem m_collision;
     EnemySpawner m_enemySpawner;
 
+    int m_screenWidth;
+    int m_screenHeight;
+
     bool m_spaceWasPressed = false;
     GameState m_state = GameState::Play;
 
