@@ -24,6 +24,7 @@ void Game::update(float dt, const InputManager& input)
         return;
     }
     m_player.update(dt, input);
+    m_player.fixToWindowSize(m_screenWidth, m_screenHeight);
     handleShooting(input);
 
     if (m_enemySpawner.shouldSpawn(dt))

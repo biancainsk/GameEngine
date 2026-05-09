@@ -71,6 +71,8 @@ public:
      */
     void move(float dx, float dy);
 
+    void fixToWindowSize(int screenW, int screenH);
+
 private:
     /**
      * @brief 

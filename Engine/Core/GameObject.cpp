@@ -71,3 +71,26 @@ void GameObject::move(float dx, float dy)
     m_pos.y += dy;
 }
 
+void GameObject::fixToWindowSize(int screenW, int screenH)
+{
+    if (m_pos.x - (m_size.width / 2) < 0)
+    {
+        m_pos.x = m_size.width / 2;
+    }
+
+    if (m_pos.x + m_size.width > screenW)
+    {
+        m_pos.x = screenW - m_size.width;
+    }
+
+    if (m_pos.y - (m_size.height / 2) < 0)
+    {
+        m_pos.y = m_size.height / 2;
+    }
+
+    if (m_pos.y + m_size.height > screenH)
+    {
+        m_pos.y = screenH - m_size.height;
+    }
+}
+
