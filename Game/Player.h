@@ -16,6 +16,9 @@ public:
     void render(Renderer& renderer) override;
 
     Bullet shoot() const;
+
+private:
+    Velocity m_trajectory = {0.0f, 0.0f};
 };
 
 #endif

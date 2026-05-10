@@ -15,8 +15,8 @@ Bullet::Bullet(Position pos, Velocity velocity)
 {}
 
 void Bullet::update(float dt)
- {
-    move(getVelocity().x * dt, 0);
+{
+    move(getVelocity().x * dt, getVelocity().y * dt);
 }
 
 void Bullet::render(Renderer& renderer)
