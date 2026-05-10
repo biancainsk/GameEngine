@@ -1,7 +1,8 @@
 #include <Core/GameObject.h>
+#include <cmath>
 
-GameObject::GameObject(Position pos, Size size, Velocity velocity, ShapeType shape, Color color)
-        : m_pos(pos), m_size(size), m_velocity(velocity), m_shape(shape), m_color(color)
+GameObject::GameObject(Position pos, Velocity velocity, Heading heading, ShapeType shape, Size size, Color color)
+        : m_pos(pos), m_velocity(velocity), m_heading(heading), m_shape(shape), m_size(size), m_color(color)
 {
 }
 
@@ -15,16 +16,6 @@ void GameObject::destroy()
     m_alive = false;
 }
 
-ShapeType GameObject::getShape() const
-{
-    return m_shape;
-}
-
-void GameObject::setShape(ShapeType shape)
-{
-    m_shape = shape;
-}
-
 Position GameObject::getPosition() const
 {
     return m_pos;
@@ -33,16 +24,6 @@ Position GameObject::getPosition() const
 void GameObject::setPosition(Position pos)
 {
     m_pos = pos;
-}
-
-Size GameObject::getSize() const
-{
-    return m_size;
-}
-
-void GameObject::setSize(Size size)
-{
-    m_size = size;
 }
 
 Velocity GameObject::getVelocity() const
@@ -55,6 +36,36 @@ void GameObject::setVelocity(Velocity velocity)
     m_velocity = velocity;
 }
 
+Heading GameObject::getHeading() const
+{
+    return m_heading;
+}
+
+void GameObject::setHeading(Heading heading)
+{
+    m_heading = heading;
+}
+
+ShapeType GameObject::getShape() const
+{
+    return m_shape;
+}
+
+void GameObject::setShape(ShapeType shape)
+{
+    m_shape = shape;
+}
+
+Size GameObject::getSize() const
+{
+    return m_size;
+}
+
+void GameObject::setSize(Size size)
+{
+    m_size = size;
+}
+
 Color GameObject::getColor() const
 {
     return m_color;
@@ -65,10 +76,10 @@ void GameObject::setColor(Color color)
     m_color = color;
 }
 
-void GameObject::move(float dx, float dy)
+void GameObject::move(float dt)
 {
-    m_pos.x += dx;
-    m_pos.y += dy;
+    m_pos.x += m_heading.x * std::abs(m_velocity.x) * dt;
+    m_pos.y += m_heading.y * std::abs(m_velocity.y) * dt;
 }
 
 void GameObject::fixToWindowSize(int screenW, int screenH)
@@ -93,4 +104,3 @@ void GameObject::fixToWindowSize(int screenW, int screenH)
         m_pos.y = screenH - m_size.height;
     }
 }
-

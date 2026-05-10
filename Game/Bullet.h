@@ -10,7 +10,7 @@ class Bullet : public GameObject
 {
 public:
     Bullet();
-    Bullet(Position pos, Velocity velocity);
+    Bullet(Position pos, Velocity velocity, Heading heading);
 
     void update(float dt);
     void render(Renderer& renderer) override;

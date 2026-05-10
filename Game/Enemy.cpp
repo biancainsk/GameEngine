@@ -2,39 +2,32 @@
 
 #include <Player.h>
 #include <Core/Renderer.h>
+#include <Core/VectorUtils.h>
 
 Enemy::Enemy() : GameObject(Position{200.0f, 200.0f},
-                            Size{30.0f, 30.0f},
                             Velocity{20.0f, 20.0f},
+                            Heading{0.0f, 0.0f},
                             ShapeType{ShapeType::Triangle},
+                            Size{30.0f, 30.0f},
                             Color{255, 0, 0})
 {}
 
-Enemy::Enemy(Position pos) : GameObject(pos, Size{30.0f, 30.0f},
-                             Velocity{20.0f, 20.0f},
+Enemy::Enemy(Position pos) : GameObject(pos, Velocity{20.0f, 20.0f},
+                             Heading{0.0f, 0.0f},
                              ShapeType{ShapeType::Triangle},
+                             Size{30.0f, 30.0f},
                              Color{255, 0, 0})
 {}
 
 void Enemy::update(float dt, const Player& player)
 {
-    if (getPosition().x < player.getPosition().x)
-    {
-        move(getVelocity().x * dt, 0);
-    }
-    else if (getPosition().x > player.getPosition().x)
-    {
-        move(-getVelocity().x * dt, 0);
-    }
+    Heading tempHeading = {player.getPosition().x - getPosition().x,
+                           player.getPosition().y - getPosition().y};
 
-    if (getPosition().y < player.getPosition().y)
-    {
-        move(0, getVelocity().y * dt);
-    }
-    else if (getPosition().y > player.getPosition().y)
-    {
-        move(0, -getVelocity().y * dt);
-    }
+    tempHeading = VectorUtils::normalize(tempHeading);
+    setHeading(tempHeading);
+
+    move(dt);
 }
 
 void Enemy::render(Renderer& renderer)

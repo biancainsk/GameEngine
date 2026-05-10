@@ -13,7 +13,7 @@ class GameObject
 {
 public:
 
-    GameObject(Position pos, Size size, Velocity velocity, ShapeType shape, Color color);
+    GameObject(Position pos, Velocity velocity, Heading heading, ShapeType shape, Size size, Color color);
 
     /**
      * @brief Construct a new Game Object object
@@ -48,28 +48,31 @@ public:
      */
     void destroy();
 
-    ShapeType getShape() const;
-    void setShape(ShapeType shape);
-
     Position getPosition() const;
     void setPosition(Position pos);
 
-    Size getSize() const;
-    void setSize(Size size);
-
     Velocity getVelocity() const;
     void setVelocity(Velocity velocity);
+
+    Heading getHeading() const;
+    void setHeading(Heading heading);
+
+    ShapeType getShape() const;
+    void setShape(ShapeType shape);
+
+    Size getSize() const;
+    void setSize(Size size);
 
     Color getColor() const;
     void setColor(Color color);
 
     /**
-     * @brief 
+     * @brief position = position + velocity * time
      * 
      * @param dx 
      * @param dy 
      */
-    void move(float dx, float dy);
+    void move(float dt);
 
     void fixToWindowSize(int screenW, int screenH);
 
@@ -81,9 +84,10 @@ private:
     bool m_alive = true;
 
     Position m_pos;
-    Size m_size;
     Velocity m_velocity;
+    Heading m_heading;
     ShapeType m_shape;
+    Size m_size;
     Color m_color;
 };
 

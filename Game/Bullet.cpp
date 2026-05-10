@@ -2,21 +2,22 @@
 #include <Core/Renderer.h>
 
 Bullet::Bullet() : GameObject(Position{100.0f, 100.0f},
-                              Size{10.0f, 5.0f},
                               Velocity{500.0f, 500.0f},
+                              Heading{0.0f, 0.0f},
                               ShapeType{ShapeType::Rectangle},
+                              Size{10.0f, 5.0f},
                               Color{0, 255, 0})
 {}
 
-Bullet::Bullet(Position pos, Velocity velocity)
-            : GameObject(pos, Size{10.0f, 5.0f},
-                         velocity, ShapeType{ShapeType::Rectangle},
+Bullet::Bullet(Position pos, Velocity velocity, Heading heading)
+            : GameObject(pos, velocity, heading,
+                         ShapeType{ShapeType::Rectangle}, Size{10.0f, 5.0f},
                          Color{0, 255, 0})
 {}
 
 void Bullet::update(float dt)
 {
-    move(getVelocity().x * dt, getVelocity().y * dt);
+    move(dt);
 }
 
 void Bullet::render(Renderer& renderer)

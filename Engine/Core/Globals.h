@@ -26,22 +26,43 @@ struct Position
  * @brief 
  * 
  */
-struct Size
+struct Velocity
 {
-    Size(float width = 0.0f, float height = 0.0f) : width(width), height(height) {}
-    float width;
-    float height;
+    Velocity(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
+    float x;
+    float y;
+};
+
+/**
+ * @brief This will be populated with the standard unit direction vector (1.0f unit).
+ * 
+ */
+struct Heading
+{
+    Heading(float x = 0, float y = 0) : x(x), y(y) {}
+    float x;
+    float y;
+
+    bool operator==(const Heading& other) const
+    {
+        return x == other.x && y == other.y;
+    }
+
+    bool operator!=(const Heading& other) const
+    {
+        return x != other.x || y != other.y;
+    }
 };
 
 /**
  * @brief 
  * 
  */
-struct Velocity
+struct Size
 {
-    Velocity(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
-    float x;
-    float y;
+    Size(float width = 0.0f, float height = 0.0f) : width(width), height(height) {}
+    float width;
+    float height;
 };
 
 struct Color
