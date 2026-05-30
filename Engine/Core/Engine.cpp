@@ -1,9 +1,7 @@
 #include <Core/Engine.h>
 #include <Core/IGame.h>
-#include <Core/Window.h>
-#include <Core/Renderer.h>
-#include <Systems/InputManager.h>
-#include <Systems/CollisionSystem.h>
+
+#include <cstdint>
 
 Engine::Engine(const std::string& windowName, int windowWidth, int windowHeight)
             : m_window(windowName, windowWidth, windowHeight),
@@ -13,7 +11,7 @@ Engine::Engine(const std::string& windowName, int windowWidth, int windowHeight)
 void Engine::run(IGame& game)
 {
     game.initialize(m_window.getWindowWidth(), m_window.getWindowHeight());
-    uint32_t lastTime = SDL_GetTicks();
+    std::uint64_t lastTime = SDL_GetTicks64();
 
     while (m_isRunning)
     {
@@ -21,7 +19,7 @@ void Engine::run(IGame& game)
         float dt = (currentTime - lastTime) / 1000.0f;
         lastTime = currentTime;
 
-        m_window.pollEvents(m_isRunning);
+        m_isRunning = m_window.pollEvents();
         m_inputManager.update();
         game.update(dt, m_inputManager);
 

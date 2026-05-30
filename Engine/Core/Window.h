@@ -11,7 +11,7 @@ public:
     ~Window();
 
     SDL_Window* getNativeWindow() const;
-    void pollEvents(bool& running);
+    bool pollEvents();
 
     int getWindowWidth() const;
     int getWindowHeight() const;

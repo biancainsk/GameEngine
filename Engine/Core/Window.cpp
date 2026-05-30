@@ -33,16 +33,19 @@ SDL_Window* Window::getNativeWindow() const
     return m_window;
 }
 
-void Window::pollEvents(bool& running)
+bool Window::pollEvents()
 {
     SDL_Event event;
+
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
         {
-            running = false;
+            return false;
         }
     }
+
+    return true;
 }
 
 int Window::getWindowWidth() const
