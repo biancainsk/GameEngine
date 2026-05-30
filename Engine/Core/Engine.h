@@ -3,25 +3,25 @@
 
 #include <string>
 
+#include <Core/Window.h>
+#include <Core/Renderer.h>
+#include <Systems/InputManager.h>
+#include <Systems/CollisionSystem.h>
+
 class IGame;
-class Window;
-class Renderer;
-class InputManager;
-class CollisionSystem;
 
 class Engine
 {
 public:
     Engine(const std::string& windowName, int windowWidth, int windowHeight);
-    ~Engine();
 
     void run(IGame& game);
 
 private:
-    Window* m_window = nullptr;
-	Renderer* m_renderer = nullptr;
-    InputManager* m_inputManager = nullptr;
-    CollisionSystem* m_collisionSystem = nullptr;
+    Window m_window;
+	Renderer m_renderer;
+    InputManager m_inputManager;
+    CollisionSystem m_collisionSystem;
 
     bool m_isRunning = true;
 };
