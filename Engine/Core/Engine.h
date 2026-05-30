@@ -15,6 +15,10 @@ class Engine
 public:
     Engine(const std::string& windowName, int windowWidth, int windowHeight);
 
+    // Prevent copying
+    Engine(const Engine&) = delete;
+    Engine& operator=(const Engine&) = delete;
+
     void run(IGame& game);
 
 private:
