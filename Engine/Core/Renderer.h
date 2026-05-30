@@ -15,9 +15,9 @@ public:
     void clear();
 	void present();
 
-    void drawEntity(Position pos, Size size, ShapeType shape, Color color);  
-    void drawRectangle(Position pos, Size size, Color color);
-    void drawTriangle(Position pos, Size size, Color color);
+    void drawEntity(Position pos, Size size, ShapeType shape, Color color) const;  
+    void drawRectangle(Position pos, Size size, Color color) const;
+    void drawTriangle(Position pos, Size size, Color color) const;
 
 private:
     SDL_Renderer* m_renderer = nullptr;

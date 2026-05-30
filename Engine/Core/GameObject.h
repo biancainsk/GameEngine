@@ -32,7 +32,7 @@ public:
      * 
      * @param renderer 
      */
-    virtual void render(Renderer& renderer) = 0;
+    virtual void render(const Renderer& renderer) const = 0;
 
     /**
      * @brief 

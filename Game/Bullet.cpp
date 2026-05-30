@@ -20,7 +20,7 @@ void Bullet::update(float dt)
     move(dt);
 }
 
-void Bullet::render(Renderer& renderer)
+void Bullet::render(const Renderer& renderer) const
 {
     renderer.drawEntity(getPosition(), getSize(), getShape(), getColor());
 }

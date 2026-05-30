@@ -1,7 +1,7 @@
 #include <Systems/CollisionSystem.h>
 #include <Core/Globals.h>
 
-bool CollisionSystem::intersects(const GameObject& entity1, const GameObject& entity2)
+bool CollisionSystem::intersects(const GameObject& entity1, const GameObject& entity2) const
 {
     Position entity1Pos = entity1.getPosition();
     Position entity2Pos = entity2.getPosition();

@@ -30,7 +30,7 @@ void Enemy::update(float dt, const Player& player)
     move(dt);
 }
 
-void Enemy::render(Renderer& renderer)
+void Enemy::render(const Renderer& renderer) const
 {
     renderer.drawEntity(getPosition(), getSize(), getShape(), getColor());
 }

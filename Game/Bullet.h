@@ -13,7 +13,7 @@ public:
     Bullet(Position pos, Velocity velocity, Heading heading);
 
     void update(float dt);
-    void render(Renderer& renderer) override;
+    void render(const Renderer& renderer) const override;
 };
 
 #endif

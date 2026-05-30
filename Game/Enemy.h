@@ -13,7 +13,7 @@ public:
     Enemy(Position pos);
 
     void update(float dt, const Player& player);
-    void render(Renderer& renderer) override;
+    void render(const Renderer& renderer) const override;
 
     static constexpr float WIDTH = 30.0f;
     static constexpr float HEIGHT = 30.0f;

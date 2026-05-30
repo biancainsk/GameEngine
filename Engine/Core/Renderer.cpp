@@ -34,7 +34,7 @@ void Renderer::present()
 	SDL_RenderPresent(m_renderer);
 }
 
-void Renderer::drawEntity(Position pos, Size size, ShapeType shape, Color color)
+void Renderer::drawEntity(Position pos, Size size, ShapeType shape, Color color) const
 {
     switch (shape)
     {
@@ -55,7 +55,7 @@ void Renderer::drawEntity(Position pos, Size size, ShapeType shape, Color color)
     }
 }
 
-void Renderer::drawRectangle(Position pos, Size size, Color color)
+void Renderer::drawRectangle(Position pos, Size size, Color color) const
 {
     SDL_FRect rect = {pos.x - size.width / 2.0f, pos.y - size.height / 2.0f, size.width, size.height};
 
@@ -63,7 +63,7 @@ void Renderer::drawRectangle(Position pos, Size size, Color color)
     SDL_RenderFillRectF(m_renderer, &rect);
 }
 
-void Renderer::drawTriangle(Position pos, Size size, Color color)
+void Renderer::drawTriangle(Position pos, Size size, Color color) const
 {
     SDL_FPoint points[3] = {{pos.x, pos.y - size.height / 2.0f},
                             {pos.x - size.width / 2.0f, pos.y + size.height / 2.0f},

@@ -13,9 +13,10 @@ public:
     Player();
 
     void update(float dt, const InputManager& input);
-    void render(Renderer& renderer) override;
+    void render(const Renderer& renderer) const override;
 
-    Bullet shoot() const;
+    Velocity getShootVelocity() const;
+    Heading getShootHeading() const;
 };
 
 #endif

@@ -1,8 +1,9 @@
 #include <Game.h>
 #include <Systems/InputManager.h>
+#include <Systems/CollisionSystem.h>
 #include <Core/Renderer.h>
 
-#include <bits/stdc++.h>
+#include <algorithm>
 
 void Game::initialize(int screenW, int screenH)
 {
@@ -12,19 +13,20 @@ void Game::initialize(int screenW, int screenH)
     m_enemySpawner = EnemySpawner(screenW, screenH);
 }
 
-void Game::update(float dt, const InputManager& input)
+void Game::update(float dt, const InputManager& input, const CollisionSystem& collision)
 {
     if (m_state == GameState::GameOver)
     {
         if (input.isKeyPressed(SDL_SCANCODE_R))
         {
-            reset();
+            restart();
         }
 
         return;
     }
+
     m_player.update(dt, input);
-    m_player.fixToWindowSize(m_screenWidth, m_screenHeight);
+    // m_player.fixToWindowSize(m_screenWidth, m_screenHeight);
     handleShooting(input);
 
     if (m_enemySpawner.shouldSpawn(dt))
@@ -35,41 +37,47 @@ void Game::update(float dt, const InputManager& input)
     updateEnemies(dt);
     updateBullets(dt);
 
-    handleCollisions();
+    handleCollisions(collision);
     removeDeadObjects();
 }
 
-void Game::render(Renderer& renderer)
+void Game::render(const Renderer& renderer) const
 {
     m_player.render(renderer);
 
-    for (Enemy& enemy : m_enemies)
+    for (const Enemy& enemy : m_enemies)
     {
         enemy.render(renderer);
     }
 
-    for (Bullet& bullet : m_bullets)
+    for (const Bullet& bullet : m_bullets)
     {
         bullet.render(renderer);
     }
 }
 
-void Game::reset()
+void Game::restart()
 {
     m_state = GameState::Play;
 
     m_player = Player();
     m_enemies.clear();
     m_bullets.clear();
+
+    m_enemySpawner = EnemySpawner(m_screenWidth, m_screenHeight);
+    m_spaceWasPressed = false;
 }
 
 void Game::handleShooting(const InputManager& input)
 {      
-    bool spaceIsPressed = input.isKeyPressed(SDL_SCANCODE_SPACE);
+    const bool spaceIsPressed = input.isKeyPressed(SDL_SCANCODE_SPACE);
 
     if (spaceIsPressed && !m_spaceWasPressed)
     {
-        m_bullets.push_back(m_player.shoot());
+        m_bullets.emplace_back(m_player.getPosition(),
+                               m_player.getShootVelocity(),
+                               m_player.getShootHeading()
+                               );
     }
 
     m_spaceWasPressed = spaceIsPressed;
@@ -91,23 +99,24 @@ void Game::updateBullets(float dt)
     }
 }
 
-void Game::handleCollisions()
+void Game::handleCollisions(const CollisionSystem& collision)
 {
     for (Bullet& bullet : m_bullets)
     {
         for (Enemy& enemy : m_enemies)
         {
-            bool collision = m_collision.intersects(bullet, enemy);
+            bool isCollision = collision.intersects(bullet, enemy);
 
-            if(collision)
+            if(isCollision)
             {
                 bullet.destroy();
                 enemy.destroy();
-                return;
+                break;
             }
         }
         // Add logic if the bullet exits the window to be cleared up
-        if (bullet.getPosition().x > m_screenWidth || bullet.getPosition().y > m_screenHeight)
+        if (bullet.getPosition().x > m_screenWidth || bullet.getPosition().x < 0
+            || bullet.getPosition().y > m_screenHeight || bullet.getPosition().y < 0)
         {
             bullet.destroy();
         }
@@ -116,11 +125,11 @@ void Game::handleCollisions()
     // Add logic if the enemy catches the player to end game
     for (Enemy& enemy : m_enemies)
     {
-        bool collision = m_collision.intersects(m_player, enemy);
-        if(collision)
+        bool isCollision = collision.intersects(m_player, enemy);
+        if(isCollision)
         {
             m_player.destroy();
-            return;
+            break;
         }
     }
 }

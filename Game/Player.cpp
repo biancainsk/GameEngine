@@ -31,14 +31,24 @@ void Player::update(float dt, const InputManager& input)
     }
 }
 
-void Player::render(Renderer& renderer)
+void Player::render(const Renderer& renderer) const
 {
     renderer.drawEntity(getPosition(), getSize(), getShape(), getColor());
 }
 
-Bullet Player::shoot() const
+Velocity Player::getShootVelocity() const
 {
-    Heading bulletHeading = (getHeading() != Heading{0.0f, 0.0f}) ? getHeading() : Heading{1.0f, 0.0f};
-    Velocity bulletVelocity = {getVelocity().x * 2, getVelocity().y * 2};
-    return Bullet(getPosition(), bulletVelocity, bulletHeading);
+    return {getVelocity().x * 2, getVelocity().y * 2};
 }
+
+Heading Player::getShootHeading() const
+{
+    return (getHeading() != Heading{0.0f, 0.0f}) ? getHeading() : Heading{1.0f, 0.0f};
+}
+
+// Bullet Player::shoot() const
+// {
+//     Heading bulletHeading = (getHeading() != Heading{0.0f, 0.0f}) ? getHeading() : Heading{1.0f, 0.0f};
+//     Velocity bulletVelocity = {getVelocity().x * 2, getVelocity().y * 2};
+//     return Bullet(getPosition(), bulletVelocity, bulletHeading);
+// }
