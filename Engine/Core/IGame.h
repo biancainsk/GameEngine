@@ -2,6 +2,7 @@
 #define IGAME_H
 
 class InputManager;
+class CollisionSystem;
 class Renderer;
 
 class IGame
@@ -11,8 +12,8 @@ public:
     virtual ~IGame() = default;
 
     virtual void initialize(int screenW, int screenH) = 0;
-    virtual void update(float dt, const InputManager& input) = 0;
-    virtual void render(Renderer& renderer) = 0;
+    virtual void update(float dt, const InputManager& input, const CollisionSystem& collision) = 0;
+    virtual void render(const Renderer& renderer) = 0;
 };
 
 #endif

@@ -2,7 +2,6 @@
 
 void InputManager::update()
 {
-    SDL_PumpEvents();
     m_keyboardState = SDL_GetKeyboardState(nullptr);
 }
 

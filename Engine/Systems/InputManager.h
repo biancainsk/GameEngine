@@ -2,7 +2,6 @@
 #define INPUT_MANAGER_H
 
 #include <SDL2/SDL.h>
-#include <cstdint>
 
 class InputManager
 {
