@@ -16,6 +16,11 @@ void GameObject::destroy()
     m_alive = false;
 }
 
+void GameObject::revive()
+{
+    m_alive = true;
+}
+
 Position GameObject::getPosition() const
 {
     return m_pos;
@@ -82,25 +87,27 @@ void GameObject::move(float dt)
     m_pos.y += m_heading.y * std::abs(m_velocity.y) * dt;
 }
 
-void GameObject::fixToWindowSize(int screenW, int screenH)
+bool GameObject::exceedsBounds(const Size& gameSize)
 {
-    if (m_pos.x - (m_size.width / 2) < 0)
-    {
-        m_pos.x = m_size.width / 2;
-    }
+    return (m_pos.x - (m_size.width / 2) < 0) || (m_pos.x + m_size.width > gameSize.width)
+           || (m_pos.y - (m_size.height / 2) < 0) || (m_pos.y + m_size.height > gameSize.height);
+    // if (m_pos.x - (m_size.width / 2) < 0)
+    // {
+    //     m_pos.x = m_size.width / 2;
+    // }
 
-    if (m_pos.x + m_size.width > screenW)
-    {
-        m_pos.x = screenW - m_size.width;
-    }
+    // if (m_pos.x + m_size.width > screenW)
+    // {
+    //     m_pos.x = screenW - m_size.width;
+    // }
 
-    if (m_pos.y - (m_size.height / 2) < 0)
-    {
-        m_pos.y = m_size.height / 2;
-    }
+    // if (m_pos.y - (m_size.height / 2) < 0)
+    // {
+    //     m_pos.y = m_size.height / 2;
+    // }
 
-    if (m_pos.y + m_size.height > screenH)
-    {
-        m_pos.y = screenH - m_size.height;
-    }
+    // if (m_pos.y + m_size.height > screenH)
+    // {
+    //     m_pos.y = screenH - m_size.height;
+    // }
 }

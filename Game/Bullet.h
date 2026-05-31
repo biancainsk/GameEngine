@@ -12,7 +12,7 @@ public:
     Bullet();
     Bullet(Position pos, Velocity velocity, Heading heading);
 
-    void update(float dt);
+    void update(float dt, const Size& gameBounds);
     void render(const Renderer& renderer) const override;
 };
 

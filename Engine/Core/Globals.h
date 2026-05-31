@@ -61,6 +61,7 @@ struct Heading
 struct Size
 {
     Size(float width = 0.0f, float height = 0.0f) : width(width), height(height) {}
+    void initialize(float newWidth, float newHeight) { width = newWidth; height = newHeight;}
     float width;
     float height;
 };
@@ -71,6 +72,16 @@ struct Color
     unsigned char g;
     unsigned char b;
     unsigned char a = 255;
+};
+
+enum class Key
+{
+    W,
+    A,
+    S,
+    D,
+    Space,
+    R
 };
 
 #endif

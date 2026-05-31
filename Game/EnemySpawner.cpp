@@ -1,10 +1,16 @@
 #include <EnemySpawner.h>
-#include <Enemy.h>
+#include "Enemy.h"
 
-EnemySpawner::EnemySpawner(int screenW, int screenH)
-                    : m_screenW(screenW), m_screenH(screenH),
-                      m_randomEngine(std::random_device{}())
-{}
+void EnemySpawner::initialize(const Size& gameBounds)
+{
+    m_gameBounds = gameBounds;
+}
+
+void EnemySpawner::reset()
+{
+    m_spawnTimer = 0.0f;
+    m_spawInterval = 2.0f;
+}
 
 bool EnemySpawner::shouldSpawn(float dt)
 {
@@ -18,13 +24,13 @@ bool EnemySpawner::shouldSpawn(float dt)
     return false;
 }
 
-Enemy EnemySpawner::spawnEnemy()
+Position EnemySpawner::spawnEnemyPosition()
 {
-    std::uniform_int_distribution<int> xDist(0, m_screenW - Enemy::WIDTH);
-    std::uniform_int_distribution<int> yDist(0, m_screenH - Enemy::HEIGHT);
+    std::uniform_int_distribution<int> xDist(0, m_gameBounds.width - Enemy::WIDTH);
+    std::uniform_int_distribution<int> yDist(0, m_gameBounds.height - Enemy::HEIGHT);
 
     float x = static_cast<float>(xDist(m_randomEngine));
     float y = static_cast<float>(yDist(m_randomEngine));
 
-    return Enemy(Position{x, y});
+    return Position{x, y};
 }

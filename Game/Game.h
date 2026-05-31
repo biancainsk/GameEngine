@@ -7,6 +7,7 @@
 #include <Enemy.h>
 #include <Bullet.h>
 #include <EnemySpawner.h>
+#include <Core/Globals.h>
 
 #include <vector>
 
@@ -16,8 +17,8 @@ class Renderer;
 
 enum class GameState
 {
-    GameOver,
-    Play
+    Play,
+    GameOver
 };
 
 class Game : public IGame
@@ -32,13 +33,9 @@ private:
     Player m_player;
     std::vector<Enemy> m_enemies;
     std::vector<Bullet> m_bullets;
-
     EnemySpawner m_enemySpawner;
 
-    int m_screenWidth = 0;
-    int m_screenHeight = 0;
-
-    bool m_spaceWasPressed = false;
+    Size m_gameBounds;
     GameState m_state = GameState::Play;
 
     void updateBullets(float dt);

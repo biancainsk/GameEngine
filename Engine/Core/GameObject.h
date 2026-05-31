@@ -48,6 +48,8 @@ public:
      */
     void destroy();
 
+    void revive();
+
     Position getPosition() const;
     void setPosition(Position pos);
 
@@ -74,7 +76,7 @@ public:
      */
     void move(float dt);
 
-    void fixToWindowSize(int screenW, int screenH);
+    bool exceedsBounds(const Size& gameSize);
 
 private:
     /**

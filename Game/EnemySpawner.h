@@ -1,22 +1,21 @@
 #ifndef ENEMY_SPAWNER_H
 #define ENEMY_SPAWNER_H
 
+#include <Core/Globals.h>
 #include <random>
-
-class Enemy;
 
 class EnemySpawner
 {
 public:
     EnemySpawner() = default;
-    EnemySpawner(int screenW, int screenH);
 
+    void initialize(const Size& gameBounds);
+    void reset();
     bool shouldSpawn(float dt);
-    Enemy spawnEnemy();
+    Position spawnEnemyPosition();
 
 private:
-    int m_screenW;
-    int m_screenH;
+    Size m_gameBounds;
 
     float m_spawnTimer = 0.0f;
     float m_spawInterval = 2.0f;

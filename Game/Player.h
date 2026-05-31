@@ -5,18 +5,20 @@
 
 class InputManager;
 class Renderer;
-class Bullet;
+struct Size;
 
 class Player : public GameObject
 {
 public:
     Player();
 
-    void update(float dt, const InputManager& input);
+    void update(float dt, const InputManager& input, const Size& gameBounds);
     void render(const Renderer& renderer) const override;
+    void reset();
 
     Velocity getShootVelocity() const;
     Heading getShootHeading() const;
+    void clampToBounds(const Size& gameBounds);
 };
 
 #endif

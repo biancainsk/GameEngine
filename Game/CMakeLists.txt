@@ -4,6 +4,7 @@ add_library(Game
             Enemy.cpp
             Bullet.cpp
             EnemySpawner.cpp
+            GameControls.cpp
 )
 
 target_include_directories(Game PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

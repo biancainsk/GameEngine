@@ -15,9 +15,14 @@ Bullet::Bullet(Position pos, Velocity velocity, Heading heading)
                          Color{0, 255, 0})
 {}
 
-void Bullet::update(float dt)
+void Bullet::update(float dt, const Size& gameBounds)
 {
     move(dt);
+    
+    if (exceedsBounds(gameBounds))
+    {
+        destroy();
+    }
 }
 
 void Bullet::render(const Renderer& renderer) const
