@@ -60,10 +60,10 @@ struct Heading
  */
 struct Size
 {
-    Size(float width = 0.0f, float height = 0.0f) : width(width), height(height) {}
-    void initialize(float newWidth, float newHeight) { width = newWidth; height = newHeight;}
-    float width;
-    float height;
+    Size(int width = 0, int height = 0) : width(width), height(height) {}
+    void initialize(int newWidth, int newHeight) { width = newWidth; height = newHeight;}
+    int width;
+    int height;
 };
 
 struct Color

@@ -9,14 +9,13 @@ void EnemySpawner::initialize(const Size& gameBounds)
 void EnemySpawner::reset()
 {
     m_spawnTimer = 0.0f;
-    m_spawInterval = 2.0f;
 }
 
 bool EnemySpawner::shouldSpawn(float dt)
 {
     m_spawnTimer += dt;
 
-    if (m_spawnTimer >= m_spawInterval)
+    if (m_spawnTimer >= m_spawnInterval)
     {
         m_spawnTimer = 0.0f;
         return true;

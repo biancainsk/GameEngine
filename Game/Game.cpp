@@ -10,8 +10,6 @@ void Game::initialize(int screenW, int screenH)
 {
     m_gameBounds.initialize(screenW, screenH);
     m_enemySpawner.initialize(m_gameBounds);
-
-    restart();
 }
 
 void Game::update(float dt, const InputManager& input, const CollisionSystem& collision)

@@ -10,7 +10,7 @@ Player::Player() : GameObject(Position{100.0f, 100.0f},
                               Velocity{250.0f, 250.0f},
                               Heading{0.0f, 0.0f},
                               ShapeType{ShapeType::Rectangle},
-                              Size{30.0f, 30.0f},
+                              Size{30, 30},
                               Color{0, 255, 0})
 {}
 
@@ -62,23 +62,33 @@ Heading Player::getShootHeading() const
 
 void Player::clampToBounds(const Size& gameBounds)
 {
-    if (getPosition().x - (getSize().width / 2) < 0)
+    const float objHalfWidth = getSize().width / 2.0f;
+    const float objHalfHeight = getSize().height / 2.0f;
+
+    const float rightLimit = static_cast<float>(gameBounds.width - getSize().width);
+    const float bottomLimit = static_cast<float>(gameBounds.height - getSize().height);
+
+    Position pos = getPosition();
+
+    if (pos.x < objHalfWidth)
     {
-        setPosition(Position{getSize().width / 2, getPosition().y});
+        pos.x = objHalfWidth;
     }
 
-    if (getPosition().x + getSize().width > gameBounds.width)
+    if (pos.x > rightLimit)
     {
-        setPosition(Position{gameBounds.width - getSize().width, getPosition().y});
+        pos.x = rightLimit;
     }
 
-    if (getPosition().y - (getSize().height / 2) < 0)
+    if (pos.y < objHalfHeight)
     {
-        setPosition(Position{getPosition().x, getSize().height / 2});
+        pos.y = objHalfHeight;
     }
 
-    if (getPosition().y + getSize().height > gameBounds.height)
+    if (pos.y > bottomLimit)
     {
-        setPosition(Position{getPosition().x, gameBounds.height - getSize().height});
+        pos.y = bottomLimit;
     }
+
+    setPosition(pos);
 }

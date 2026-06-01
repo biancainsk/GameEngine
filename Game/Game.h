@@ -38,8 +38,8 @@ private:
     Size m_gameBounds;
     GameState m_state = GameState::Play;
 
-    void updateBullets(float dt);
     void updateEnemies(float dt);
+    void updateBullets(float dt);
     void handleShooting(const InputManager& input);
     void handleCollisions(const CollisionSystem& collision);
     void removeDeadObjects();

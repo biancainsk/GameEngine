@@ -18,7 +18,7 @@ private:
     Size m_gameBounds;
 
     float m_spawnTimer = 0.0f;
-    float m_spawInterval = 2.0f;
+    float m_spawnInterval = 2.0f;
 
     std::mt19937 m_randomEngine;
 };
