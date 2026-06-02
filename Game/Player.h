@@ -12,13 +12,18 @@ class Player : public GameObject
 public:
     Player();
 
-    void update(float dt, const InputManager& input, const Size& gameBounds);
+    void update(float dt) override;
     void render(const Renderer& renderer) const override;
+
+    void handleInput(const InputManager& input);
     void reset();
 
     Velocity getShootVelocity() const;
     Heading getShootHeading() const;
     void clampToBounds(const Size& gameBounds);
+
+private:
+    bool m_allowMove = false;
 };
 
 #endif

@@ -27,11 +27,9 @@ public:
      */
     virtual ~GameObject() = default;
 
-    /**
-     * @brief 
-     * 
-     * @param renderer 
-     */
+    void initialize(const Size& gameBounds);
+
+    virtual void update(float dt) = 0;
     virtual void render(const Renderer& renderer) const = 0;
 
     /**
@@ -76,7 +74,8 @@ public:
      */
     void move(float dt);
 
-    bool exceedsBounds(const Size& gameSize);
+    bool exceedsBounds();
+    Size getGameBounds() const;
 
 private:
     /**
@@ -91,6 +90,8 @@ private:
     ShapeType m_shape;
     Size m_size;
     Color m_color;
+
+    Size m_gameBounds;
 };
 
 #endif

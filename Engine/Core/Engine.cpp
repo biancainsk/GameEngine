@@ -10,7 +10,7 @@ Engine::Engine(const std::string& windowName, int windowWidth, int windowHeight)
 
 void Engine::run(IGame& game)
 {
-    game.initialize(m_window.getWindowWidth(), m_window.getWindowHeight());
+    game.initialize(Size{m_window.getWindowWidth(), m_window.getWindowHeight()});
     std::uint64_t lastTime = SDL_GetTicks64();
 
     while (m_isRunning)

@@ -5,6 +5,7 @@ add_library(Engine
             Core/GameObject.cpp
             Systems/InputManager.cpp
             Systems/CollisionSystem.cpp
+            Systems/SpawnerSystem.cpp
 )
 
 target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -6,6 +6,11 @@ GameObject::GameObject(Position pos, Velocity velocity, Heading heading, ShapeTy
 {
 }
 
+void GameObject::initialize(const Size& gameBounds)
+{
+    m_gameBounds = gameBounds;
+}
+
 bool GameObject::isAlive() const
 {
     return m_alive;
@@ -87,10 +92,10 @@ void GameObject::move(float dt)
     m_pos.y += m_heading.y * std::abs(m_velocity.y) * dt;
 }
 
-bool GameObject::exceedsBounds(const Size& gameSize)
+bool GameObject::exceedsBounds()
 {
-    return (m_pos.x - (m_size.width / 2) < 0) || (m_pos.x + m_size.width > gameSize.width)
-           || (m_pos.y - (m_size.height / 2) < 0) || (m_pos.y + m_size.height > gameSize.height);
+    return (m_pos.x - (m_size.width / 2) < 0) || (m_pos.x + m_size.width > m_gameBounds.width)
+           || (m_pos.y - (m_size.height / 2) < 0) || (m_pos.y + m_size.height > m_gameBounds.height);
     // if (m_pos.x - (m_size.width / 2) < 0)
     // {
     //     m_pos.x = m_size.width / 2;
@@ -110,4 +115,9 @@ bool GameObject::exceedsBounds(const Size& gameSize)
     // {
     //     m_pos.y = screenH - m_size.height;
     // }
+}
+
+Size GameObject::getGameBounds() const
+{
+    return m_gameBounds;
 }

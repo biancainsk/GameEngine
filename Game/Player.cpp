@@ -14,26 +14,14 @@ Player::Player() : GameObject(Position{100.0f, 100.0f},
                               Color{0, 255, 0})
 {}
 
-void Player::update(float dt, const InputManager& input, const Size& gameBounds)
+void Player::update(float dt)
 {
-    Heading tempHeading {0, 0};
-
-    if (input.isKeyPressed(toKey(GameAction::MoveUp))) tempHeading.y -= 1.0f;
-    if (input.isKeyPressed(toKey(GameAction::MoveDown))) tempHeading.y += 1.0f;
-    if (input.isKeyPressed(toKey(GameAction::MoveLeft))) tempHeading.x -= 1.0f;
-    if (input.isKeyPressed(toKey(GameAction::MoveRight))) tempHeading.x += 1.0f;
-
-    if (tempHeading.x != 0.0f || tempHeading.y != 0.0f)
-    {
-        tempHeading = VectorUtils::normalize(tempHeading);
-        setHeading(tempHeading);
-
+    if (m_allowMove)
         move(dt);
-    }
 
-    if (exceedsBounds(gameBounds))
+    if (exceedsBounds())
     {
-        clampToBounds(gameBounds);
+        clampToBounds(getGameBounds());
     }
 }
 
@@ -48,6 +36,27 @@ void Player::reset()
     setVelocity({250.0f, 250.0f});
     setHeading({0.0f, 0.0f});
     revive();
+}
+
+void Player::handleInput(const InputManager& input)
+{
+    Heading tempHeading {0, 0};
+
+    if (input.isKeyPressed(toKey(GameAction::MoveUp))) tempHeading.y -= 1.0f;
+    if (input.isKeyPressed(toKey(GameAction::MoveDown))) tempHeading.y += 1.0f;
+    if (input.isKeyPressed(toKey(GameAction::MoveLeft))) tempHeading.x -= 1.0f;
+    if (input.isKeyPressed(toKey(GameAction::MoveRight))) tempHeading.x += 1.0f;
+
+    if (tempHeading.x != 0.0f || tempHeading.y != 0.0f)
+    {
+        tempHeading = VectorUtils::normalize(tempHeading);
+        setHeading(tempHeading);
+        m_allowMove = true;
+    }
+    else
+    {
+        m_allowMove = false;
+    }
 }
 
 Velocity Player::getShootVelocity() const

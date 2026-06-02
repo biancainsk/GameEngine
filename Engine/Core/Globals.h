@@ -61,7 +61,7 @@ struct Heading
 struct Size
 {
     Size(int width = 0, int height = 0) : width(width), height(height) {}
-    void initialize(int newWidth, int newHeight) { width = newWidth; height = newHeight;}
+    void initialize(Size wh) { width = wh.width; height = wh.height;}
     int width;
     int height;
 };

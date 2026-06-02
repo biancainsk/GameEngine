@@ -2,14 +2,43 @@
 #include <Systems/InputManager.h>
 #include <Systems/CollisionSystem.h>
 #include <Core/Renderer.h>
-#include "GameControls.h"
+#include <GameControls.h>
+
+#include <Bullet.h>
+#include <Enemy.h>
+#include <Systems/SpawnerSystem.h>
+#include <ClassicEnemySpawner.h>
+#include <FastEnemySpawner.h>
 
 #include <algorithm>
 
-void Game::initialize(int screenW, int screenH)
+Game::~Game()
 {
-    m_gameBounds.initialize(screenW, screenH);
-    m_enemySpawner.initialize(m_gameBounds);
+    destroyObjects();
+    destroySpawners();
+}
+
+void Game::initialize(const Size& gameBounds)
+{
+    m_gameBounds.initialize(gameBounds);
+    m_player.initialize(m_gameBounds);
+    setUpSpawners();
+}
+
+void Game::setUpSpawners()
+{
+    m_classicEnemySpawner = new ClassicEnemySpawner(SpawnConfig{4.0f, m_gameBounds});
+    m_fastEnemySpawner = new FastEnemySpawner(SpawnConfig{6.0f, m_gameBounds});
+}
+
+void Game::restart()
+{
+    m_state = GameState::Play;
+
+    m_player.reset();
+    destroyObjects();
+    destroySpawners();
+    setUpSpawners();
 }
 
 void Game::update(float dt, const InputManager& input, const CollisionSystem& collision)
@@ -24,16 +53,14 @@ void Game::update(float dt, const InputManager& input, const CollisionSystem& co
         return;
     }
 
-    m_player.update(dt, input, m_gameBounds);
+    m_player.handleInput(input);
+    m_player.update(dt);
     handleShooting(input);
 
-    if (m_enemySpawner.shouldSpawn(dt))
-    {
-        m_enemies.emplace_back(m_enemySpawner.spawnEnemyPosition());
-    }
+    handleSpawning(dt);
 
-    updateEnemies(dt);
-    updateBullets(dt);
+    updateEnemyTargets();
+    updateObjects(dt);
 
     handleCollisions(collision);
     removeDeadObjects();
@@ -42,98 +69,123 @@ void Game::update(float dt, const InputManager& input, const CollisionSystem& co
 void Game::render(const Renderer& renderer) const
 {
     m_player.render(renderer);
+    renderObjects(renderer);
+}
 
-    for (const Enemy& enemy : m_enemies)
+void Game::updateObjects(float dt)
+{
+    for (GameObject* object : m_objects)
     {
-        enemy.render(renderer);
-    }
-
-    for (const Bullet& bullet : m_bullets)
-    {
-        bullet.render(renderer);
+        if (object != nullptr)
+        {
+            object->update(dt);
+        }
     }
 }
 
-void Game::restart()
+void Game::renderObjects(const Renderer& renderer) const
 {
-    m_state = GameState::Play;
+    for (GameObject* object : m_objects)
+    {
+        if (object != nullptr)
+        {
+            object->render(renderer);
+        }
+    }
+}
 
-    m_player.reset();
-    m_enemies.clear();
-    m_bullets.clear();
+void Game::updateEnemyTargets()
+{
+    for (const auto& object : m_objects)
+    {
+        if (object == nullptr) continue;
+ 
+        Enemy* enemy = dynamic_cast<Enemy*>(object);
+        if (enemy != nullptr)
+        {
+            enemy->setTarget(m_player.getPosition());
+        }
+    }
+}
 
-    m_enemySpawner.reset();
+void Game::handleSpawning(float dt)
+{
+    auto trySpawn = [&](SpawnerSystem* spawner)
+    {
+        if (!spawner || !spawner->shouldSpawn(dt))
+            return;
+
+        GameObject* object = spawner->spawnEntity(dt);
+        if (object == nullptr)
+            return;
+
+        Enemy* enemy = dynamic_cast<Enemy*>(object);
+        if (enemy != nullptr)
+        {
+            enemy->setTarget(m_player.getPosition());
+        }
+
+        m_objects.push_back(object);
+    };
+
+    trySpawn(m_classicEnemySpawner);
+    trySpawn(m_fastEnemySpawner);
 }
 
 void Game::handleShooting(const InputManager& input)
 {      
     if (input.isKeyPressed(toKey(GameAction::Shoot)))
     {
-        m_bullets.emplace_back(m_player.getPosition(),
-                               m_player.getShootVelocity(),
-                               m_player.getShootHeading()
-                               );
-    }
-}
-
-void Game::updateEnemies(float dt)
-{
-    for (Enemy& enemy : m_enemies)
-    {
-        enemy.update(dt, m_player);
-    }
-}
-
-void Game::updateBullets(float dt)
-{
-    for (Bullet& bullet : m_bullets)
-    {
-        bullet.update(dt, m_gameBounds);
+        GameObject* bullet = new Bullet(m_player.getPosition(),
+                                        m_player.getShootVelocity(),
+                                        m_player.getShootHeading()
+                                       );
+        bullet->initialize(m_gameBounds);
+        m_objects.push_back(bullet);
     }
 }
 
 void Game::handleCollisions(const CollisionSystem& collision)
 {
-    if (!m_player.isAlive())
+    for (const auto& firstObject : m_objects)
     {
-        return;
-    }
-
-    for (Bullet& bullet : m_bullets)
-    {
-        if (!bullet.isAlive())
-        {
+        if (!firstObject || !firstObject->isAlive())
             continue;
-        }
+        
+        Bullet* bullet = dynamic_cast<Bullet*>(firstObject);
+        if (bullet == nullptr)
+            continue;
 
-        for (Enemy& enemy : m_enemies)
+        for (const auto& secondObject : m_objects)
         {
-            if (!enemy.isAlive())
-            {
+            if (!secondObject || !secondObject->isAlive())
                 continue;
-            }
 
-            if (collision.intersects(bullet, enemy))
+            Enemy* enemy = dynamic_cast<Enemy*>(secondObject);
+            if (enemy == nullptr)
+                continue;
+
+            if (collision.intersects(*bullet, *enemy))
             {
-                bullet.destroy();
-                enemy.destroy();
-                break;
+                bullet->destroy();
+                enemy->destroy();
             }
         }
     }
 
-    // Add logic if the enemy catches the player to end game
-    for (Enemy& enemy : m_enemies)
+    for (const auto& object : m_objects)
     {
-        if (!enemy.isAlive())
-        {
+        if (!object || !object->isAlive())
             continue;
-        }
 
-        if (collision.intersects(m_player, enemy))
+        Enemy* enemy = dynamic_cast<Enemy*>(object);
+        if (enemy == nullptr)
+            continue;
+
+        if (collision.intersects(m_player, *enemy))
         {
             m_player.destroy();
-            break;
+            enemy->destroy();
         }
     }
 }
@@ -145,13 +197,37 @@ void Game::removeDeadObjects()
         m_state = GameState::GameOver;
     }
 
-    m_bullets.erase(std::remove_if(m_bullets.begin(), m_bullets.end(), [](const Bullet& bullet)
+    for (auto it = m_objects.begin(); it != m_objects.end();)
     {
-        return !bullet.isAlive();
-    }), m_bullets.end());
+        GameObject* object = *it;
 
-    m_enemies.erase(std::remove_if(m_enemies.begin(), m_enemies.end(), [](const Enemy& enemy)
+        if ((object == nullptr) || (!object->isAlive()))
+        {
+            delete object;
+            it = m_objects.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+}
+
+void Game::destroyObjects()
+{
+    for (GameObject* object : m_objects)
     {
-        return !enemy.isAlive();
-    }), m_enemies.end());
+        delete object;
+    }
+
+    m_objects.clear();
+}
+
+void Game::destroySpawners()
+{
+    delete m_classicEnemySpawner;
+    m_classicEnemySpawner = nullptr;
+
+    delete m_fastEnemySpawner;
+    m_fastEnemySpawner = nullptr;
 }
