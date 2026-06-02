@@ -1,8 +1,6 @@
 #include <Core/Engine.h>
 #include <Game.h>
 
-#include <iostream>
-
 int main()
 {
     Engine engine("Shooter Game", 800, 600);

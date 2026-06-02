@@ -32,7 +32,7 @@ void Engine::run(IGame& game)
         // Step 3: Update game using the input
         game.update(dt, m_inputManager, m_collisionSystem);
 
-        // Step 3: Render
+        // Step 4: Render
         // Rendering steps: 1) Clear previous frame -> 2) Draw current frame -> 3) Show current frame
         m_renderer.clear();
         game.render(m_renderer);

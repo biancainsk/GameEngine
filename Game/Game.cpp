@@ -169,6 +169,7 @@ void Game::handleCollisions(const CollisionSystem& collision)
             {
                 bullet->destroy();
                 enemy->destroy();
+                break;
             }
         }
     }
