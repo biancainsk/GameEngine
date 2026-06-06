@@ -9,6 +9,8 @@ class Window
 public:
     Window(const std::string& windowName, int windowWidth, int windowHeight);
     ~Window();
+    Window(const Window&) = delete;
+    Window& operator=(const Window&) = delete;
 
     SDL_Window* getNativeWindow() const;
     bool pollEvents();

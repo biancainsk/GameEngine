@@ -5,7 +5,11 @@
 Window::Window(const std::string& windowName, int windowWidth, int windowHeight)
                 : m_windowWidth(windowWidth), m_windowHeight(windowHeight)
 {
-    SDL_Init(SDL_INIT_VIDEO);
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
+        throw std::runtime_error(SDL_GetError());
+    }
+
     m_window = SDL_CreateWindow(windowName.c_str(),
                                 SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED,
@@ -15,6 +19,7 @@ Window::Window(const std::string& windowName, int windowWidth, int windowHeight)
 
     if (!m_window)
     {
+        SDL_Quit();
         throw std::runtime_error(SDL_GetError());
     }
 }
