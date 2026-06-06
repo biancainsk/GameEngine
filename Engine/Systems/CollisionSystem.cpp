@@ -9,8 +9,8 @@ bool CollisionSystem::intersects(const GameObject& entity1, const GameObject& en
     Size entity1Size = entity1.getSize();
     Size entity2Size = entity2.getSize();
 
-    return entity1Pos.x < entity2Pos.x + entity2Size.width &&
-           entity1Pos.x + entity1Size.width > entity2Pos.x &&
-           entity1Pos.y < entity2Pos.y + entity2Size.height &&
-           entity1Pos.y + entity1Size.height > entity2Pos.y;
+    return entity1Pos.x - entity1Size.width  / 2.0f < entity2Pos.x + entity2Size.width  / 2.0f &&
+           entity1Pos.x + entity1Size.width  / 2.0f > entity2Pos.x - entity2Size.width  / 2.0f &&
+           entity1Pos.y - entity1Size.height / 2.0f < entity2Pos.y + entity2Size.height / 2.0f &&
+           entity1Pos.y + entity1Size.height / 2.0f > entity2Pos.y - entity2Size.height / 2.0f;
 }
