@@ -25,8 +25,6 @@ private:
 	Renderer m_renderer;
     InputManager m_inputManager;
     CollisionSystem m_collisionSystem;
-
-    bool m_isRunning = true;
 };
 
 #endif

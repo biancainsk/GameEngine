@@ -69,13 +69,13 @@ Heading Player::getShootHeading() const
     return (getHeading() != Heading{0.0f, 0.0f}) ? getHeading() : Heading{1.0f, 0.0f};
 }
 
-void Player::clampToBounds(const Size& gameBounds)
+void Player::clampToBounds(const GameContext& gameBounds)
 {
     const float objHalfWidth = getSize().width / 2.0f;
     const float objHalfHeight = getSize().height / 2.0f;
 
-    const float rightLimit = static_cast<float>(gameBounds.width - getSize().width);
-    const float bottomLimit = static_cast<float>(gameBounds.height - getSize().height);
+    const float rightLimit = static_cast<float>(gameBounds.bounds.width - getSize().width);
+    const float bottomLimit = static_cast<float>(gameBounds.bounds.height - getSize().height);
 
     Position pos = getPosition();
 

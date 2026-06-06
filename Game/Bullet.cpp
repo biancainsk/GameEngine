@@ -9,11 +9,13 @@ Bullet::Bullet() : GameObject(Position{100.0f, 100.0f},
                               Color{0, 255, 0})
 {}
 
-Bullet::Bullet(Position pos, Velocity velocity, Heading heading)
+Bullet::Bullet(Position pos, Velocity velocity, Heading heading, GameContext context)
             : GameObject(pos, velocity, heading,
                          ShapeType{ShapeType::Rectangle}, Size{10, 5},
                          Color{0, 255, 0})
-{}
+{
+    setMovementBounds(context);
+}
 
 void Bullet::update(float dt)
 {

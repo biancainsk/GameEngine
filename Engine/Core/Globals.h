@@ -61,7 +61,6 @@ struct Heading
 struct Size
 {
     Size(int width = 0, int height = 0) : width(width), height(height) {}
-    void initialize(Size wh) { width = wh.width; height = wh.height;}
     int width;
     int height;
 };
@@ -82,6 +81,11 @@ enum class Key
     D,
     Space,
     R
+};
+
+struct GameContext
+{
+    Size bounds;
 };
 
 #endif

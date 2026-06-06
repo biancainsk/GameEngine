@@ -20,7 +20,7 @@ public:
 
     Velocity getShootVelocity() const;
     Heading getShootHeading() const;
-    void clampToBounds(const Size& gameBounds);
+    void clampToBounds(const GameContext& gameBounds);
 
 private:
     bool m_allowMove = false;

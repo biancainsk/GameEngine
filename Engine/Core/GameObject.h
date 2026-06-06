@@ -27,7 +27,7 @@ public:
      */
     virtual ~GameObject() = default;
 
-    void initialize(const Size& gameBounds);
+    void setMovementBounds(const GameContext& gameBounds);
 
     virtual void update(float dt) = 0;
     virtual void render(const Renderer& renderer) const = 0;
@@ -75,7 +75,7 @@ public:
     void move(float dt);
 
     bool exceedsBounds();
-    Size getGameBounds() const;
+    GameContext getGameBounds() const;
 
 private:
     /**
@@ -91,7 +91,7 @@ private:
     Size m_size;
     Color m_color;
 
-    Size m_gameBounds;
+    GameContext m_gameBounds;
 };
 
 #endif

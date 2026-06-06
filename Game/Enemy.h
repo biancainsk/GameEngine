@@ -12,14 +12,14 @@ public:
     // Enemy();
     Enemy(Position position, Velocity velocity);
 
+    void update(float dt) override;
+    void render(const Renderer& renderer) const override;
+
     void setTarget(Position target);
     void followTarget(float dt);
 
 private:
     Position m_target;
-
-    void update(float dt) override;
-    void render(const Renderer& renderer) const override;
 
     // static constexpr float WIDTH = 30.0f;
     // static constexpr float HEIGHT = 30.0f;

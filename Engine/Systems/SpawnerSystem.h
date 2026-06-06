@@ -9,7 +9,7 @@ class GameObject;
 struct SpawnConfig
 {
     float spawnInterval = 2.0f;
-    Size gameBounds;
+    GameContext gameBounds;
 };
 
 class SpawnerSystem
@@ -19,7 +19,7 @@ public:
     virtual ~SpawnerSystem() = default;
 
     bool shouldSpawn(float dt);
-    GameObject* spawnEntity(float dt);
+    GameObject* spawnEntity();
     void reset();
 
 protected:

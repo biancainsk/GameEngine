@@ -16,12 +16,12 @@ bool SpawnerSystem::shouldSpawn(float dt)
     return false;
 }
 
-GameObject* SpawnerSystem::spawnEntity(float dt)
+GameObject* SpawnerSystem::spawnEntity()
 {
     GameObject* spawnedEntity = nullptr;
 
-    std::uniform_int_distribution<int> xDist(0, m_config.gameBounds.width);
-    std::uniform_int_distribution<int> yDist(0, m_config.gameBounds.height);
+    std::uniform_int_distribution<int> xDist(0, m_config.gameBounds.bounds.width);
+    std::uniform_int_distribution<int> yDist(0, m_config.gameBounds.bounds.height);
 
     float x = static_cast<float>(xDist(m_randomEngine));
     float y = static_cast<float>(yDist(m_randomEngine));

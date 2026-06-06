@@ -10,7 +10,7 @@ class Bullet : public GameObject
 {
 public:
     Bullet();
-    Bullet(Position pos, Velocity velocity, Heading heading);
+    Bullet(Position pos, Velocity velocity, Heading heading, GameContext context);
 
     void update(float dt) override;
     void render(const Renderer& renderer) const override;
