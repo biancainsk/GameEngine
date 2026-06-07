@@ -19,9 +19,8 @@ enum class ShapeType
  */
 struct Position
 {
-    Position(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
-    float x;
-    float y;
+    float x = 0.0f;
+    float y = 0.0f;
 };
 
 /**
@@ -30,9 +29,8 @@ struct Position
  */
 struct Velocity
 {
-    Velocity(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
-    float x;
-    float y;
+    float x = 0.0f;
+    float y = 0.0f;
 };
 
 /**
@@ -41,9 +39,8 @@ struct Velocity
  */
 struct Heading
 {
-    Heading(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
-    float x;
-    float y;
+    float x = 0.0f;
+    float y = 0.0f;
 
     bool operator==(const Heading& other) const
     {
@@ -64,16 +61,15 @@ struct Heading
  */
 struct Size
 {
-    Size(int width = 0, int height = 0) : width(width), height(height) {}
-    int width;
-    int height;
+    int width = 0;
+    int height = 0;
 };
 
 struct Color
 {
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
+    unsigned char r = 0;
+    unsigned char g = 0;
+    unsigned char b = 0;
     unsigned char a = 255;
 };
 
