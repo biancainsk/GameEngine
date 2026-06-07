@@ -57,7 +57,7 @@ void Renderer::drawEntity(Position pos, Size size, ShapeType shape, Color color)
 
 void Renderer::drawRectangle(Position pos, Size size, Color color) const
 {
-    SDL_FRect rect = {pos.x - size.width / 2.0f, pos.y - size.height / 2.0f, size.width, size.height};
+    SDL_FRect rect = {pos.x - size.width / 2.0f, pos.y - size.height / 2.0f, static_cast<float>(size.width), static_cast<float>(size.height)};
 
     SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRectF(m_renderer, &rect);
