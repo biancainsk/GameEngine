@@ -1,6 +1,8 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+#include <cmath>
+
 /**
  * @brief 
  * 
@@ -12,14 +14,14 @@ enum class ShapeType
 };
 
 /**
- * @brief 
+ * @brief With respect to the center of the object.
  * 
  */
 struct Position
 {
     Position(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
-    float x;   // Center X
-    float y;   // Center Y
+    float x;
+    float y;
 };
 
 /**
@@ -45,12 +47,14 @@ struct Heading
 
     bool operator==(const Heading& other) const
     {
-        return x == other.x && y == other.y;
+        constexpr float eps = 1e-6f;
+        return std::abs(x - other.x) < eps && 
+               std::abs(y - other.y) < eps;
     }
 
     bool operator!=(const Heading& other) const
     {
-        return x != other.x || y != other.y;
+        return !(*this == other);
     }
 };
 
