@@ -20,8 +20,8 @@ GameObject* SpawnerSystem::spawnEntity()
 {
     GameObject* spawnedEntity = nullptr;
 
-    std::uniform_int_distribution<int> xDist(0, m_config.gameBounds.bounds.width);
-    std::uniform_int_distribution<int> yDist(0, m_config.gameBounds.bounds.height);
+    std::uniform_int_distribution<int> xDist(0, m_config.context.bounds.width);
+    std::uniform_int_distribution<int> yDist(0, m_config.context.bounds.height);
 
     float x = static_cast<float>(xDist(m_randomEngine));
     float y = static_cast<float>(yDist(m_randomEngine));

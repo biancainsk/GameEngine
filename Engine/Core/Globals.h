@@ -39,7 +39,7 @@ struct Velocity
  */
 struct Heading
 {
-    Heading(float x = 0, float y = 0) : x(x), y(y) {}
+    Heading(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
     float x;
     float y;
 

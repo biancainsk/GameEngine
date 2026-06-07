@@ -9,7 +9,7 @@ class GameObject;
 struct SpawnConfig
 {
     float spawnInterval = 2.0f;
-    GameContext gameBounds;
+    GameContext context;
 };
 
 class SpawnerSystem
@@ -29,7 +29,7 @@ private:
     SpawnConfig m_config;
 
     float m_spawnTimer = 0.0f;
-    std::mt19937 m_randomEngine;
+    std::mt19937 m_randomEngine{std::random_device{}()};
 };
 
 #endif

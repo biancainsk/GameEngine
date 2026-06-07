@@ -29,11 +29,6 @@ namespace
                 return SDL_SCANCODE_UNKNOWN;
         }
     }
-
-    int toIndex(Key key)
-    {
-        return static_cast<int>(key);
-    }
 }
 
 void InputManager::update()
