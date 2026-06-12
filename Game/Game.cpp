@@ -116,10 +116,10 @@ void Game::handleSpawning(float dt)
 {
     auto trySpawn = [&](SpawnerSystem* spawner)
     {
-        if (!spawner || !spawner->shouldSpawn(dt))
+        if (!spawner)
             return;
 
-        GameObject* object = spawner->spawnEntity();
+        GameObject* object = spawner->spawnEntity(dt);
         if (object == nullptr)
             return;
 
@@ -144,7 +144,7 @@ void Game::handleSpawning(float dt)
 
 void Game::handleShooting(const InputManager& input)
 {      
-    if (input.isKeyPressed(toKey(GameAction::Shoot)))
+    if (input.isKeyReleased(toKey(GameAction::Shoot)))
     {
         if (m_bullets.size() >= MAX_BULLETS)
             return;

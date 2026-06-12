@@ -1,7 +1,7 @@
 #ifndef COLLISION_SYSTEM_H
 #define COLLISION_SYSTEM_H
 
-#include <Core/GameObject.h>
+class GameObject;
 
 class CollisionSystem
 {

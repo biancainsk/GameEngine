@@ -1,6 +1,8 @@
 #include <Systems/InputManager.h>
 #include <Core/Globals.h>
 
+#include <cassert>
+
 namespace
 {
     SDL_Scancode toSDLScancode(Key key)
@@ -26,6 +28,7 @@ namespace
                 return SDL_SCANCODE_R;
 
             default:
+                assert(false && "Unhandled key");
                 return SDL_SCANCODE_UNKNOWN;
         }
     }
@@ -33,12 +36,23 @@ namespace
 
 void InputManager::update()
 {
-    m_keyboardState = SDL_GetKeyboardState(nullptr);
+    int numKeys = 0;
+
+    const Uint8* m_keyboardState = SDL_GetKeyboardState(&numKeys);
+    m_keyboardPreviousState = std::move(m_keyboardCurrentState);
+    m_keyboardCurrentState.assign(m_keyboardState, m_keyboardState + numKeys);
 }
 
 bool InputManager::isKeyPressed(Key key) const
 {
     const SDL_Scancode scancode = toSDLScancode(key);
+    return !m_keyboardCurrentState.empty() && m_keyboardCurrentState[scancode];
+}
 
-    return m_keyboardState && m_keyboardState[scancode];
+bool InputManager::isKeyReleased(Key key) const
+{
+    const SDL_Scancode scancode = toSDLScancode(key);
+    if (m_keyboardCurrentState.empty() || m_keyboardCurrentState.empty())
+        return false;
+    return m_keyboardCurrentState[scancode] && !m_keyboardPreviousState[scancode];
 }

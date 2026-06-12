@@ -2,6 +2,7 @@
 #include <Core/Window.h>
 
 #include <stdexcept>
+#include <cassert>
 
 Renderer::Renderer(const Window& window)
 {
@@ -50,7 +51,7 @@ void Renderer::drawEntity(Position pos, Size size, ShapeType shape, Color color)
         }
         default:
         {
-            drawRectangle(pos, size, color);
+            assert(false && "Unhandled ShapeType");
         }
     }
 }
@@ -76,9 +77,9 @@ void Renderer::drawTriangle(Position pos, Size size, Color color) const
     verts[1].position = points[1];
     verts[2].position = points[2];
 
-    SDL_Color _color = {color.r, color.g, color.b, color.a};
+    SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
     for (int i = 0; i < 3; ++i) {
-        verts[i].color = _color;
+        verts[i].color = sdlColor;
     }
     SDL_RenderGeometry(m_renderer, nullptr, verts, 3, nullptr, 0);
 }

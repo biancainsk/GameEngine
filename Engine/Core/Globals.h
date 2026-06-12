@@ -4,8 +4,7 @@
 #include <cmath>
 
 /**
- * @brief 
- * 
+ * @brief Supported render shapes.
  */
 enum class ShapeType
 {
@@ -14,8 +13,7 @@ enum class ShapeType
 };
 
 /**
- * @brief With respect to the center of the object.
- * 
+ * @brief Objects' position with respect to the center of the object.
  */
 struct Position
 {
@@ -24,8 +22,7 @@ struct Position
 };
 
 /**
- * @brief 
- * 
+ * @brief 2D velocity in units per second.
  */
 struct Velocity
 {
@@ -34,8 +31,7 @@ struct Velocity
 };
 
 /**
- * @brief This will be populated with the standard unit direction vector (1.0f unit).
- * 
+ * @brief Unit direction vector (magnitude 1.0f).
  */
 struct Heading
 {
@@ -56,8 +52,7 @@ struct Heading
 };
 
 /**
- * @brief 
- * 
+ * @brief Width and height in pixels.
  */
 struct Size
 {
@@ -65,6 +60,9 @@ struct Size
     int height = 0;
 };
 
+/**
+ * @brief Color in rgba.
+ */
 struct Color
 {
     unsigned char r = 0;
@@ -73,6 +71,9 @@ struct Color
     unsigned char a = 255;
 };
 
+/**
+ * @brief Supported keys to produce actions.
+ */
 enum class Key
 {
     W,
@@ -83,6 +84,9 @@ enum class Key
     R
 };
 
+/**
+ * @brief Shared game-wide state passed to game objects.
+ */
 struct GameContext
 {
     Size bounds;

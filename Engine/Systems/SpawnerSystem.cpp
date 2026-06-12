@@ -4,21 +4,14 @@ SpawnerSystem::SpawnerSystem(const SpawnConfig& config)
                     : m_config(config)
 {}
 
-bool SpawnerSystem::shouldSpawn(float dt)
+GameObject* SpawnerSystem::spawnEntity(float dt)
 {
     m_spawnTimer += dt;
 
-    if (m_spawnTimer >= m_config.spawnInterval)
-    {
-        m_spawnTimer = 0.0f;
-        return true;
-    }
-    return false;
-}
+    if (m_spawnTimer < m_config.spawnInterval)
+        return nullptr;
 
-GameObject* SpawnerSystem::spawnEntity()
-{
-    GameObject* spawnedEntity = nullptr;
+    m_spawnTimer = 0.0f;
 
     std::uniform_int_distribution<int> xDist(0, m_config.context.bounds.width);
     std::uniform_int_distribution<int> yDist(0, m_config.context.bounds.height);
@@ -26,9 +19,7 @@ GameObject* SpawnerSystem::spawnEntity()
     float x = static_cast<float>(xDist(m_randomEngine));
     float y = static_cast<float>(yDist(m_randomEngine));
 
-    spawnedEntity = createObject(Position{x, y});
-
-    return spawnedEntity;
+    return createObject(Position{x, y});
 }
 
 void SpawnerSystem::reset()

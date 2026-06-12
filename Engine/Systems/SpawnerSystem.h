@@ -17,9 +17,10 @@ class SpawnerSystem
 public:
     explicit SpawnerSystem(const SpawnConfig& config = SpawnConfig());
     virtual ~SpawnerSystem() = default;
+    SpawnerSystem(const SpawnerSystem&) = delete;
+    SpawnerSystem& operator=(const SpawnerSystem&) = delete;
 
-    bool shouldSpawn(float dt);
-    GameObject* spawnEntity();
+    GameObject* spawnEntity(float dt);
     void reset();
 
 protected:

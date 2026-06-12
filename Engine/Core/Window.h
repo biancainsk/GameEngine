@@ -19,10 +19,10 @@ public:
     int getWindowHeight() const;
 
 private:
-    SDL_Window* m_window = nullptr;
+    int m_windowWidth = 0;
+    int m_windowHeight = 0;
 
-    int m_windowWidth;
-    int m_windowHeight;
+    SDL_Window* m_window = nullptr;
 };
 
 #endif

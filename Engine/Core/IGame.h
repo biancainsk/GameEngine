@@ -11,6 +11,8 @@ class IGame
 public:
     IGame() = default;
     virtual ~IGame() = default;
+    IGame(const IGame&) = delete;
+    IGame& operator=(const IGame&) = delete;
 
     virtual void initialize(const Size& gameBounds) = 0;
     virtual void update(float dt, const InputManager& input, const CollisionSystem& collision) = 0;

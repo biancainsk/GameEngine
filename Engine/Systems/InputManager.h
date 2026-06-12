@@ -3,15 +3,18 @@
 
 #include <Core/Globals.h>
 #include <SDL2/SDL.h>
+#include <vector>
 
 class InputManager
 {
 public:
     void update();
     bool isKeyPressed(Key key) const;
+    bool isKeyReleased(Key key) const;
 
 private:
-    const Uint8* m_keyboardState = nullptr;
+    std::vector<Uint8> m_keyboardCurrentState;
+    std::vector<Uint8> m_keyboardPreviousState;
 };
 
 #endif

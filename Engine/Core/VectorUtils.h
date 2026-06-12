@@ -10,7 +10,7 @@ namespace VectorUtils
     {
         float length = std::sqrt(h.x * h.x + h.y * h.y);
 
-        if (length > 0.0f)
+        if (length > 1e-6f)
         {
             h.x /= length;
             h.y /= length;
