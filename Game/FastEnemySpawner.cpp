@@ -7,7 +7,7 @@ FastEnemySpawner::FastEnemySpawner(SpawnConfig config)
 {
 }
 
-GameObject* FastEnemySpawner::createObject(Position position)
+GameObject* FastEnemySpawner::createObject(Position position, const GameContext& context)
 {
-    return new FastEnemy(position);
+    return new FastEnemy(position, context);
 }

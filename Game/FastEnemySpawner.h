@@ -12,7 +12,7 @@ public:
     explicit FastEnemySpawner(SpawnConfig config);
 
 protected:
-    GameObject* createObject(Position position) override;
+    GameObject* createObject(Position position, const GameContext& context) override;
 };
 
 #endif

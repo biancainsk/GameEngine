@@ -1,33 +1,18 @@
 #include <Bullet.h>
-#include <Core/Renderer.h>
 
-Bullet::Bullet() : GameObject(Position{100.0f, 100.0f},
-                              Velocity{500.0f, 500.0f},
-                              Heading{0.0f, 0.0f},
-                              ShapeType{ShapeType::Rectangle},
-                              Size{10, 5},
-                              Color{0, 255, 0})
-{}
-
-Bullet::Bullet(Position pos, Velocity velocity, Heading heading, GameContext context)
-            : GameObject(pos, velocity, heading,
-                         ShapeType{ShapeType::Rectangle}, Size{10, 5},
-                         Color{0, 255, 0})
+Bullet::Bullet(Position position, Velocity velocity, Heading heading, const GameContext& context)
+            : GameObject("Bullet", position,
+                         Appearance{ShapeType::Rectangle, Size{10, 5}, Color{0, 255, 0}})
 {
+    setVelocity(velocity);
+    setHeading(heading);
     setMovementBounds(context);
 }
 
 void Bullet::update(float dt)
 {
-    move(dt);
+    setPosition(move(getPosition(), dt));
     
-    if (exceedsBounds())
-    {
+    if (exceedsBounds(getPosition(), getAppearance().size))
         destroy();
-    }
-}
-
-void Bullet::render(const Renderer& renderer) const
-{
-    renderer.drawEntity(getPosition(), getSize(), getShape(), getColor());
 }

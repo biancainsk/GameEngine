@@ -92,4 +92,14 @@ struct GameContext
     Size bounds;
 };
 
+/**
+ * @brief Appearance properties of game objects.
+ */
+struct Appearance
+{
+    ShapeType shape = ShapeType::Rectangle;
+    Size size;
+    Color color;
+};
+
 #endif

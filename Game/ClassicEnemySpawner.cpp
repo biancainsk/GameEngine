@@ -7,7 +7,7 @@ ClassicEnemySpawner::ClassicEnemySpawner(SpawnConfig config)
 {
 }
 
-GameObject* ClassicEnemySpawner::createObject(Position position)
+GameObject* ClassicEnemySpawner::createObject(Position position, const GameContext& context)
 {
-    return new ClassicEnemy(position);
+    return new ClassicEnemy(position, context);
 }

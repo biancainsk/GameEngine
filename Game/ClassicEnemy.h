@@ -6,10 +6,7 @@
 class ClassicEnemy : public Enemy
 {
 public:
-    explicit ClassicEnemy(Position position);
-
-    // void update(float dt);
-    // void render(const Renderer& renderer) const override;
+    explicit ClassicEnemy(Position position, const GameContext& context);
 };
 
 #endif

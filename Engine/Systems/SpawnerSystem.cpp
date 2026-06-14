@@ -19,7 +19,7 @@ GameObject* SpawnerSystem::spawnEntity(float dt)
     float x = static_cast<float>(xDist(m_randomEngine));
     float y = static_cast<float>(yDist(m_randomEngine));
 
-    return createObject(Position{x, y});
+    return createObject(Position{x, y}, m_config.context);
 }
 
 void SpawnerSystem::reset()

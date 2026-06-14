@@ -1,14 +1,13 @@
 #include <Core/GameObject.h>
-#include <cmath>
+#include <Core/Renderer.h>
 
-GameObject::GameObject(Position pos, Velocity velocity, Heading heading, ShapeType shape, Size size, Color color)
-        : m_pos(pos), m_velocity(velocity), m_heading(heading), m_shape(shape), m_size(size), m_color(color)
-{
-}
+GameObject::GameObject(const std::string& name, Position position, Appearance appearance)
+        : m_name(name), m_position(position), m_appearance(appearance)
+{}
 
-void GameObject::setMovementBounds(const GameContext& gameBounds)
+void GameObject::render(const Renderer& renderer) const
 {
-    m_gameBounds = gameBounds;
+    renderer.drawEntity(m_position, m_appearance);
 }
 
 bool GameObject::isAlive() const
@@ -26,98 +25,32 @@ void GameObject::revive()
     m_alive = true;
 }
 
+int GameObject::getId() const
+{
+    return m_id;
+}
+
+const std::string& GameObject::getName() const
+{
+    return m_name;
+}
+
 Position GameObject::getPosition() const
 {
-    return m_pos;
+    return m_position;
 }
 
-void GameObject::setPosition(Position pos)
+void GameObject::setPosition(Position position)
 {
-    m_pos = pos;
+    m_position = position;
 }
 
-Velocity GameObject::getVelocity() const
+Appearance GameObject::getAppearance() const
 {
-    return m_velocity;
+    return m_appearance;
 }
 
-void GameObject::setVelocity(Velocity velocity)
+void GameObject::setAppearance(Appearance appearance)
 {
-    m_velocity = velocity;
-}
-
-Heading GameObject::getHeading() const
-{
-    return m_heading;
-}
-
-void GameObject::setHeading(Heading heading)
-{
-    m_heading = heading;
-}
-
-ShapeType GameObject::getShape() const
-{
-    return m_shape;
-}
-
-void GameObject::setShape(ShapeType shape)
-{
-    m_shape = shape;
-}
-
-Size GameObject::getSize() const
-{
-    return m_size;
-}
-
-void GameObject::setSize(Size size)
-{
-    m_size = size;
-}
-
-Color GameObject::getColor() const
-{
-    return m_color;
-}
-
-void GameObject::setColor(Color color)
-{
-    m_color = color;
-}
-
-void GameObject::move(float dt)
-{
-    m_pos.x += m_heading.x * std::abs(m_velocity.x) * dt;
-    m_pos.y += m_heading.y * std::abs(m_velocity.y) * dt;
-}
-
-bool GameObject::exceedsBounds()
-{
-    return (m_pos.x - (m_size.width / 2) < 0) || (m_pos.x + m_size.width > m_gameBounds.bounds.width)
-           || (m_pos.y - (m_size.height / 2) < 0) || (m_pos.y + m_size.height > m_gameBounds.bounds.height);
-    // if (m_pos.x - (m_size.width / 2) < 0)
-    // {
-    //     m_pos.x = m_size.width / 2;
-    // }
-
-    // if (m_pos.x + m_size.width > screenW)
-    // {
-    //     m_pos.x = screenW - m_size.width;
-    // }
-
-    // if (m_pos.y - (m_size.height / 2) < 0)
-    // {
-    //     m_pos.y = m_size.height / 2;
-    // }
-
-    // if (m_pos.y + m_size.height > screenH)
-    // {
-    //     m_pos.y = screenH - m_size.height;
-    // }
-}
-
-GameContext GameObject::getGameBounds() const
-{
-    return m_gameBounds;
+    m_appearance = appearance;
 }

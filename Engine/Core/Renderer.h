@@ -17,7 +17,7 @@ public:
     void clear();
 	void present();
 
-    void drawEntity(Position pos, Size size, ShapeType shape, Color color) const;  
+    void drawEntity(Position pos, Appearance appearance) const;  
 
 private:
     void drawRectangle(Position pos, Size size, Color color) const;

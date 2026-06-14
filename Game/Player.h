@@ -2,25 +2,21 @@
 #define PLAYER_H
 
 #include <Core/GameObject.h>
+#include <Core/IMovable.h>
 
 class InputManager;
-class Renderer;
-struct Size;
 
-class Player : public GameObject
+class Player : public GameObject, public IMovable
 {
 public:
     Player();
 
     void update(float dt) override;
-    void render(const Renderer& renderer) const override;
-
     void handleInput(const InputManager& input);
     void reset();
 
     Velocity getShootVelocity() const;
     Heading getShootHeading() const;
-    void clampToBounds(const GameContext& gameBounds);
 
 private:
     bool m_allowMove = false;

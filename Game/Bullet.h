@@ -2,18 +2,15 @@
 #define BULLET_H
 
 #include <Core/GameObject.h>
+#include <Core/IMovable.h>
 #include <Core/Globals.h>
 
-class Renderer;
-
-class Bullet : public GameObject
+class Bullet : public GameObject, public IMovable
 {
 public:
-    Bullet();
-    Bullet(Position pos, Velocity velocity, Heading heading, GameContext context);
+    Bullet(Position position, Velocity velocity, Heading heading, const GameContext& context);
 
     void update(float dt) override;
-    void render(const Renderer& renderer) const override;
 };
 
 #endif

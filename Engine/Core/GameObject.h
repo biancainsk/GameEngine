@@ -2,96 +2,45 @@
 #define GAME_OBJECT_H
 
 #include <Core/Globals.h>
+#include <string>
 
 class Renderer;
 
-/**
- * @brief 
- * 
- */
 class GameObject
 {
 public:
-
-    GameObject(Position pos, Velocity velocity, Heading heading, ShapeType shape, Size size, Color color);
-
-    /**
-     * @brief Construct a new Game Object object
-     * 
-     */
     GameObject() = default;
-
-    /**
-     * @brief Destroy the Game Object object
-     * 
-     */
+    GameObject(const std::string& name, Position position, Appearance appearance);
     virtual ~GameObject() = default;
-
-    void setMovementBounds(const GameContext& gameBounds);
+    GameObject(const GameObject&) = delete;
+    GameObject& operator=(const GameObject&) = delete;
 
     virtual void update(float dt) = 0;
-    virtual void render(const Renderer& renderer) const = 0;
+    virtual void render(const Renderer& renderer) const;
 
-    /**
-     * @brief 
-     * 
-     * @return true 
-     * @return false 
-     */
     bool isAlive() const;
-
-    /**
-     * @brief 
-     * 
-     */
     void destroy();
+
+    int getId() const;
+    const std::string& getName() const;
+
+    Position getPosition() const;
+    void setPosition(Position position);
+
+    Appearance getAppearance() const;
+    void setAppearance(Appearance appearance);
 
     void revive();
 
-    Position getPosition() const;
-    void setPosition(Position pos);
-
-    Velocity getVelocity() const;
-    void setVelocity(Velocity velocity);
-
-    Heading getHeading() const;
-    void setHeading(Heading heading);
-
-    ShapeType getShape() const;
-    void setShape(ShapeType shape);
-
-    Size getSize() const;
-    void setSize(Size size);
-
-    Color getColor() const;
-    void setColor(Color color);
-
-    /**
-     * @brief position = position + velocity * time
-     * 
-     * @param dx 
-     * @param dy 
-     */
-    void move(float dt);
-
-    bool exceedsBounds();
-    GameContext getGameBounds() const;
-
 private:
-    /**
-     * @brief 
-     * 
-     */
+    inline static int m_nextId = 0;
+
+    int m_id = ++m_nextId;
+    std::string m_name;
     bool m_alive = true;
 
-    Position m_pos;
-    Velocity m_velocity;
-    Heading m_heading;
-    ShapeType m_shape;
-    Size m_size;
-    Color m_color;
-
-    GameContext m_gameBounds;
+    Position m_position;
+    Appearance m_appearance;
 };
 
 #endif

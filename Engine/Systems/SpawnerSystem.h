@@ -24,7 +24,7 @@ public:
     void reset();
 
 protected:
-    virtual GameObject* createObject(Position) = 0;
+    virtual GameObject* createObject(Position, const GameContext& context) = 0;
 
 private:
     SpawnConfig m_config;

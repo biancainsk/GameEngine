@@ -2,27 +2,19 @@
 #define ENEMY_H
 
 #include <Core/GameObject.h>
+#include <Core/IMovable.h>
+#include <Core/IBehavior.h>
 
-class Player;
-class Renderer;
+#include <string>
 
-class Enemy : public GameObject
+class Enemy : public GameObject, public IMovable, public IBehavior
 {
 public:
-    // Enemy();
-    Enemy(Position position, Velocity velocity);
+    Enemy(const std::string& name, Position position,
+          Velocity velocity, Appearance appearance, const GameContext& context);
 
     void update(float dt) override;
-    void render(const Renderer& renderer) const override;
-
-    void setTarget(Position target);
-    void followTarget(float dt);
-
-private:
-    Position m_target;
-
-    // static constexpr float WIDTH = 30.0f;
-    // static constexpr float HEIGHT = 30.0f;
+    void behave() override;
 };
 
 #endif

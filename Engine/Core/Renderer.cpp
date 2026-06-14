@@ -35,18 +35,18 @@ void Renderer::present()
 	SDL_RenderPresent(m_renderer);
 }
 
-void Renderer::drawEntity(Position pos, Size size, ShapeType shape, Color color) const
+void Renderer::drawEntity(Position pos, Appearance appearance) const
 {
-    switch (shape)
+    switch (appearance.shape)
     {
         case ShapeType::Rectangle:
         {
-            drawRectangle(pos, size, color);
+            drawRectangle(pos, appearance.size, appearance.color);
             break;
         }
         case ShapeType::Triangle:
         {
-            drawTriangle(pos, size, color);
+            drawTriangle(pos, appearance.size, appearance.color);
             break;
         }
         default:

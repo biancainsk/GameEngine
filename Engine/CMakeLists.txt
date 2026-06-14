@@ -3,6 +3,8 @@ add_library(Engine
             Core/Renderer.cpp
             Core/Window.cpp
             Core/GameObject.cpp
+            Core/IMovable.cpp
+            Core/IBehavior.cpp
             Systems/InputManager.cpp
             Systems/CollisionSystem.cpp
             Systems/SpawnerSystem.cpp
