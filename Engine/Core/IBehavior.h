@@ -13,7 +13,9 @@ public:
 
     virtual void behave() = 0;
     void setTarget(Position t);
-    Heading headingToTarget(Position from) const;
+
+protected:
+    Heading headingToTarget(Position startPosition) const;
 
 private:
     Position m_target;

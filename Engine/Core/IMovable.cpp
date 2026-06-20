@@ -34,10 +34,13 @@ Position IMovable::move(Position position, float dt) const
 
 bool IMovable::exceedsBounds(Position position, Size size) const
 {
-    return (position.x - (size.width / 2) < 0) ||
-            (position.x + size.width > m_context.bounds.width) ||
-            (position.y - (size.height / 2) < 0) ||
-            (position.y + size.height > m_context.bounds.height);
+    const float halfW = size.width  / 2.0f;
+    const float halfH = size.height / 2.0f;
+
+    return (position.x - halfW < 0) ||
+           (position.x + halfW > m_context.bounds.width) ||
+           (position.y - halfH < 0) ||
+           (position.y + halfH > m_context.bounds.height);
 }
 
 Position IMovable::clampToBounds(Position position, Size size) const

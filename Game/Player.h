@@ -9,7 +9,7 @@ class InputManager;
 class Player : public GameObject, public IMovable
 {
 public:
-    Player();
+    Player(Position spawnPoint = {100.0f, 100.0f});
 
     void update(float dt) override;
     void handleInput(const InputManager& input);
@@ -19,7 +19,7 @@ public:
     Heading getShootHeading() const;
 
 private:
-    bool m_allowMove = false;
+    Position m_spawnPoint;
 };
 
 #endif

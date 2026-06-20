@@ -44,7 +44,7 @@ void Game::update(float dt, const InputManager& input, const CollisionSystem& co
 {
     if (m_state == GameState::GameOver)
     {
-        if (input.isKeyPressed(toKey(GameAction::Restart)))
+        if (input.isKeyJustPressed(toKey(GameAction::Restart)))
         {
             restart();
         }
@@ -144,7 +144,7 @@ void Game::handleSpawning(float dt)
 
 void Game::handleShooting(const InputManager& input)
 {      
-    if (input.isKeyReleased(toKey(GameAction::Shoot)))
+    if (input.isKeyJustPressed(toKey(GameAction::Shoot)))
     {
         if (m_bullets.size() >= MAX_BULLETS)
             return;

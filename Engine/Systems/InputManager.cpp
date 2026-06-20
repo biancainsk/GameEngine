@@ -1,6 +1,4 @@
 #include <Systems/InputManager.h>
-#include <Core/Globals.h>
-
 #include <cassert>
 
 namespace
@@ -38,21 +36,21 @@ void InputManager::update()
 {
     int numKeys = 0;
 
-    const Uint8* m_keyboardState = SDL_GetKeyboardState(&numKeys);
+    const Uint8* keyboardState = SDL_GetKeyboardState(&numKeys);
     m_keyboardPreviousState = std::move(m_keyboardCurrentState);
-    m_keyboardCurrentState.assign(m_keyboardState, m_keyboardState + numKeys);
+    m_keyboardCurrentState.assign(keyboardState, keyboardState + numKeys);
 }
 
-bool InputManager::isKeyPressed(Key key) const
+bool InputManager::isKeyHeld(Key key) const
 {
     const SDL_Scancode scancode = toSDLScancode(key);
     return !m_keyboardCurrentState.empty() && m_keyboardCurrentState[scancode];
 }
 
-bool InputManager::isKeyReleased(Key key) const
+bool InputManager::isKeyJustPressed(Key key) const
 {
     const SDL_Scancode scancode = toSDLScancode(key);
-    if (m_keyboardCurrentState.empty() || m_keyboardCurrentState.empty())
+    if (m_keyboardCurrentState.empty() || m_keyboardPreviousState.empty())
         return false;
     return m_keyboardCurrentState[scancode] && !m_keyboardPreviousState[scancode];
 }

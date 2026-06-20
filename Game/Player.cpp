@@ -2,9 +2,11 @@
 
 #include <Systems/InputManager.h>
 #include <GameControls.h>
+#include <Core/VectorUtils.h>
 
-Player::Player() : GameObject("Player", Position{100.0f, 100.0f},
-                              Appearance{ShapeType::Rectangle, Size{30, 30}, Color{0, 255, 0}})
+Player::Player(Position spawnPoint)
+                : GameObject("Player", spawnPoint, Appearance{ShapeType::Rectangle, Size{30, 30}, Color{0, 255, 0}}),
+                  m_spawnPoint(spawnPoint)
 {
     setVelocity(Velocity{250.0f, 250.0f});
 }
@@ -18,17 +20,17 @@ void Player::handleInput(const InputManager& input)
 {
     Heading tempHeading {0, 0};
 
-    if (input.isKeyPressed(toKey(GameAction::MoveUp))) tempHeading.y -= 1.0f;
-    if (input.isKeyPressed(toKey(GameAction::MoveDown))) tempHeading.y += 1.0f;
-    if (input.isKeyPressed(toKey(GameAction::MoveLeft))) tempHeading.x -= 1.0f;
-    if (input.isKeyPressed(toKey(GameAction::MoveRight))) tempHeading.x += 1.0f;
+    if (input.isKeyHeld(toKey(GameAction::MoveUp))) tempHeading.y -= 1.0f;
+    if (input.isKeyHeld(toKey(GameAction::MoveDown))) tempHeading.y += 1.0f;
+    if (input.isKeyHeld(toKey(GameAction::MoveLeft))) tempHeading.x -= 1.0f;
+    if (input.isKeyHeld(toKey(GameAction::MoveRight))) tempHeading.x += 1.0f;
 
-    setHeading(tempHeading);
+    setHeading(VectorUtils::normalize(tempHeading));
 }
 
 void Player::reset()
 {
-    setPosition({100.0f, 100.0f});
+    setPosition(m_spawnPoint);
     setHeading({0.0f, 0.0f});
     revive();
 }

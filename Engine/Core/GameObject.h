@@ -9,7 +9,6 @@ class Renderer;
 class GameObject
 {
 public:
-    GameObject() = default;
     GameObject(const std::string& name, Position position, Appearance appearance);
     virtual ~GameObject() = default;
     GameObject(const GameObject&) = delete;
@@ -30,12 +29,13 @@ public:
     Appearance getAppearance() const;
     void setAppearance(Appearance appearance);
 
+protected:
     void revive();
 
 private:
-    inline static int m_nextId = 0;
+    inline static int s_nextId = 0;
 
-    int m_id = ++m_nextId;
+    int m_id = ++s_nextId;
     std::string m_name;
     bool m_alive = true;
 

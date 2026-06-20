@@ -9,8 +9,8 @@ class InputManager
 {
 public:
     void update();
-    bool isKeyPressed(Key key) const;
-    bool isKeyReleased(Key key) const;
+    bool isKeyHeld(Key key) const;
+    bool isKeyJustPressed(Key key) const;
 
 private:
     std::vector<Uint8> m_keyboardCurrentState;

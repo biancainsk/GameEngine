@@ -6,6 +6,7 @@ Enemy::Enemy(const std::string& name, Position position,
 {
     setVelocity(velocity);
     setMovementBounds(context);
+    setTarget(position);
 }
 
 void Enemy::update(float dt)

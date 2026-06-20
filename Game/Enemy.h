@@ -10,11 +10,12 @@
 class Enemy : public GameObject, public IMovable, public IBehavior
 {
 public:
-    Enemy(const std::string& name, Position position,
-          Velocity velocity, Appearance appearance, const GameContext& context);
-
     void update(float dt) override;
     void behave() override;
+
+protected:
+    Enemy(const std::string& name, Position position,
+          Velocity velocity, Appearance appearance, const GameContext& context);
 };
 
 #endif
