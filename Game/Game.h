@@ -23,7 +23,7 @@ enum class GameState
 class Game : public IGame
 {
 public:
-    Game() = default;    
+    Game() = default;
     ~Game() override;
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;

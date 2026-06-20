@@ -9,7 +9,7 @@ class InputManager;
 class Player : public GameObject, public IMovable
 {
 public:
-    Player(Position spawnPoint = {100.0f, 100.0f});
+    explicit Player(Position spawnPoint = {100.0f, 100.0f});
 
     void update(float dt) override;
     void handleInput(const InputManager& input);

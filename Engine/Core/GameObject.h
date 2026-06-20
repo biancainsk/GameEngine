@@ -9,6 +9,7 @@ class Renderer;
 class GameObject
 {
 public:
+    GameObject() = delete;
     GameObject(const std::string& name, Position position, Appearance appearance);
     virtual ~GameObject() = default;
     GameObject(const GameObject&) = delete;

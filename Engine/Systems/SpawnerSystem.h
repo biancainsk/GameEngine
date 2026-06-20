@@ -15,6 +15,7 @@ struct SpawnConfig
 class SpawnerSystem
 {
 public:
+    SpawnerSystem() = default;
     explicit SpawnerSystem(const SpawnConfig& config = SpawnConfig());
     virtual ~SpawnerSystem() = default;
     SpawnerSystem(const SpawnerSystem&) = delete;

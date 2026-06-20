@@ -9,7 +9,7 @@ class Window;
 class Renderer
 {
 public:
-    Renderer(const Window& window);
+    explicit Renderer(const Window& window);
     ~Renderer();
     Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
