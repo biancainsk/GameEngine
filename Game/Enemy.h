@@ -7,6 +7,8 @@
 
 #include <string>
 
+class Player;
+
 class Enemy : public GameObject, public IMovable, public IBehavior
 {
 public:

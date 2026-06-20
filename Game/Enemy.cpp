@@ -1,4 +1,5 @@
 #include <Enemy.h>
+#include <Player.h>
 
 Enemy::Enemy(const std::string& name, Position position,
              Velocity velocity, Appearance appearance, const GameContext& context)
@@ -6,7 +7,6 @@ Enemy::Enemy(const std::string& name, Position position,
 {
     setVelocity(velocity);
     setMovementBounds(context);
-    setTarget(position);
 }
 
 void Enemy::update(float dt)

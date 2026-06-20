@@ -3,6 +3,8 @@
 
 #include <Core/Globals.h>
 
+class GameObject;
+
 class IBehavior
 {
 public:
@@ -12,13 +14,13 @@ public:
     IBehavior& operator=(const IBehavior&) = delete;
 
     virtual void behave() = 0;
-    void setTarget(Position t);
+    void setTarget(const GameObject& target);
 
 protected:
     Heading headingToTarget(Position startPosition) const;
 
 private:
-    Position m_target;
+    const GameObject* m_target = nullptr;
 };
 
 #endif

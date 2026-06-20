@@ -53,10 +53,9 @@ void Game::update(float dt, const InputManager& input, const CollisionSystem& co
 
     m_player.handleInput(input);
     m_player.update(dt);
-    handleShooting(input);
 
+    handleShooting(input);
     handleSpawning(dt);
-    updateEnemyTargets();
 
     updateEnemies(dt);
     updateBullets(dt);
@@ -104,14 +103,6 @@ void Game::renderBullets(const Renderer& renderer) const
     }
 }
 
-void Game::updateEnemyTargets()
-{
-    for (const auto& enemy : m_enemies)
-    {
-        enemy->setTarget(m_player.getPosition());
-    }
-}
-
 void Game::handleSpawning(float dt)
 {
     auto trySpawn = [&](SpawnerSystem* spawner)
@@ -130,6 +121,7 @@ void Game::handleSpawning(float dt)
                 delete enemy;
                 return;
             }
+            enemy->setTarget(m_player);
             m_enemies.push_back(enemy);
         }
         else

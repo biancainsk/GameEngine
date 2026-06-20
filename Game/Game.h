@@ -50,7 +50,6 @@ private:
     void updateBullets(float dt);
     void renderEnemies(const Renderer& renderer) const;
     void renderBullets(const Renderer& renderer) const;
-    void updateEnemyTargets();
 
     void handleShooting(const InputManager& input);
     void handleCollisions(const CollisionSystem& collision);
