@@ -14,8 +14,8 @@ public:
     void behave() override;
 
 protected:
-    Enemy(const std::string& name, Position position,
-          Velocity velocity, Appearance appearance, const GameContext& context);
+    explicit Enemy(const std::string& name, Position position,
+                   Velocity velocity, Appearance appearance, const GameContext& context);
 };
 
 #endif

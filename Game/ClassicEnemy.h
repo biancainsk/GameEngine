@@ -6,7 +6,7 @@
 class ClassicEnemy : public Enemy
 {
 public:
-    ClassicEnemy(Position position, const GameContext& context);
+    explicit ClassicEnemy(Position position, const GameContext& context);
 };
 
 #endif

@@ -6,7 +6,7 @@
 class FastEnemy : public Enemy
 {
 public:
-    FastEnemy(Position position, const GameContext& context);
+    explicit FastEnemy(Position position, const GameContext& context);
 };
 
 #endif

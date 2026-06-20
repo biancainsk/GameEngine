@@ -13,7 +13,7 @@ class IGame;
 class Engine
 {
 public:
-    Engine(const std::string& windowName, int windowWidth, int windowHeight);
+    explicit Engine(const std::string& windowName, int windowWidth, int windowHeight);
     Engine(const Engine&) = delete;
     Engine& operator=(const Engine&) = delete;
 

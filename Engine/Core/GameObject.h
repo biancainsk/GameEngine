@@ -10,7 +10,7 @@ class GameObject
 {
 public:
     GameObject() = delete;
-    GameObject(const std::string& name, Position position, Appearance appearance);
+    explicit GameObject(const std::string& name, Position position, Appearance appearance);
     virtual ~GameObject() = default;
     GameObject(const GameObject&) = delete;
     GameObject& operator=(const GameObject&) = delete;

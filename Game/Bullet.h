@@ -8,7 +8,7 @@
 class Bullet : public GameObject, public IMovable
 {
 public:
-    Bullet(Position position, Velocity velocity, Heading heading, const GameContext& context);
+    explicit Bullet(Position position, Velocity velocity, Heading heading, const GameContext& context);
 
     void update(float dt) override;
 };
