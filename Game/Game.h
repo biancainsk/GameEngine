@@ -2,10 +2,13 @@
 #define GAME_H
 
 #include <Core/IGame.h>
+#include <Core/TextRenderer.h>
+#include <Core/Globals.h>
+
 #include <Player.h>
 #include <Bullet.h>
 #include <Enemy.h> 
-#include <Core/Globals.h>
+#include <WaveManager.h>
 
 #include <vector>
 
@@ -42,6 +45,10 @@ private:
 
     SpawnerSystem* m_classicEnemySpawner = nullptr;
     SpawnerSystem* m_fastEnemySpawner = nullptr;
+
+    WaveManager m_enemyWaveManager;
+
+    TextRenderer m_textRenderer{"assets/LikhanNormal.ttf", 24};
 
     void restart();
     void setUpSpawners();

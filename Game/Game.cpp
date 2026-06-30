@@ -35,6 +35,8 @@ void Game::restart()
 {
     m_state = GameState::Play;
     m_player.reset();
+    m_enemyWaveManager.reset();
+    
     destroyObjects();
     m_classicEnemySpawner->reset();
     m_fastEnemySpawner->reset();
@@ -61,7 +63,9 @@ void Game::update(float dt, const InputManager& input, const CollisionSystem& co
     updateBullets(dt);
 
     handleCollisions(collision);
+
     removeDeadObjects();
+    m_enemyWaveManager.update(dt);
 }
 
 void Game::render(const Renderer& renderer) const
@@ -69,6 +73,9 @@ void Game::render(const Renderer& renderer) const
     renderEnemies(renderer);
     m_player.render(renderer);
     renderBullets(renderer);
+
+    const std::string waveText = "Level " + std::to_string(m_enemyWaveManager.currentWave());
+    m_textRenderer.draw(renderer, waveText, Position{10.0f, 10.0f}, Color{255, 255, 255});
 }
 
 void Game::updateEnemies(float dt)
@@ -107,7 +114,7 @@ void Game::handleSpawning(float dt)
 {
     auto trySpawn = [&](SpawnerSystem* spawner)
     {
-        if (!spawner)
+        if (!spawner || !m_enemyWaveManager.canSpawn())
             return;
 
         GameObject* object = spawner->spawnEntity(dt);
@@ -123,6 +130,7 @@ void Game::handleSpawning(float dt)
             }
             enemy->setTarget(m_player);
             m_enemies.push_back(enemy);
+            m_enemyWaveManager.onEntitySpawned(enemy->getId());
         }
         else
         {
@@ -152,12 +160,12 @@ void Game::handleShooting(const InputManager& input)
 void Game::handleCollisions(const CollisionSystem& collision)
 {
     // Bullet vs Enemy
-    for (const auto& bullet : m_bullets)
+    for (auto* bullet : m_bullets)
     {
         if (!bullet->isAlive())
             continue;
 
-        for (const auto& enemy : m_enemies)
+        for (auto* enemy : m_enemies)
         {
             if (!enemy->isAlive())
                 continue;
@@ -172,7 +180,7 @@ void Game::handleCollisions(const CollisionSystem& collision)
     }
 
     // Player vs Enemy
-    for (const auto& enemy : m_enemies)
+    for (auto* enemy : m_enemies)
     {
         if (!enemy->isAlive())
             continue;
@@ -209,6 +217,7 @@ void Game::removeDeadObjects()
     {
         if (!(*it)->isAlive())
         {
+            m_enemyWaveManager.onEntityDies((*it)->getId());
             delete *it;
             it = m_enemies.erase(it);
         }
@@ -221,12 +230,12 @@ void Game::removeDeadObjects()
 
 void Game::destroyObjects()
 {
-    for (Enemy* enemy : m_enemies)
+    for (auto* enemy : m_enemies)
     {
         delete enemy;
     }
 
-    for (Bullet* bullet : m_bullets)
+    for (auto* bullet : m_bullets)
     {
         delete bullet;
     }

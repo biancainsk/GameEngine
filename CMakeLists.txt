@@ -14,3 +14,5 @@ add_subdirectory(Game)
 
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE Engine Game)
+
+file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})

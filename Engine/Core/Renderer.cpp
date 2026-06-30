@@ -8,7 +8,7 @@ Renderer::Renderer(const Window& window)
 {
     m_renderer = SDL_CreateRenderer(window.getNativeWindow(),
                                     -1,
-                                    SDL_RENDERER_ACCELERATED);
+                                    SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (!m_renderer)
     {
@@ -24,9 +24,9 @@ Renderer::~Renderer()
     }
 }
 
-void Renderer::clear()
+void Renderer::clear(Color background)
 {
-	SDL_SetRenderDrawColor(m_renderer, 20, 20, 20, 255);
+	SDL_SetRenderDrawColor(m_renderer, background.r, background.g, background.b, background.a);
 	SDL_RenderClear(m_renderer);
 }
 
@@ -78,8 +78,28 @@ void Renderer::drawTriangle(Position pos, Size size, Color color) const
     verts[2].position = points[2];
 
     SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i)
+    {
         verts[i].color = sdlColor;
     }
     SDL_RenderGeometry(m_renderer, nullptr, verts, 3, nullptr, 0);
+}
+
+void Renderer::drawText(SDL_Surface* surface, Position pos) const
+{
+    if (!surface)
+    {
+        return;
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, surface);
+    if (!texture)
+    {
+        return;
+    }
+
+    SDL_Rect rect = {static_cast<int>(pos.x), static_cast<int>(pos.y),
+                     surface->w, surface->h};
+    SDL_RenderCopy(m_renderer, texture, nullptr, &rect);
+    SDL_DestroyTexture(texture);
 }

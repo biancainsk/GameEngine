@@ -14,10 +14,11 @@ public:
     Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
 
-    void clear();
+    void clear(Color background = {20,20,20,255});
 	void present();
 
-    void drawEntity(Position pos, Appearance appearance) const;  
+    void drawEntity(Position pos, Appearance appearance) const; 
+    void drawText(SDL_Surface* surface, Position pos) const;
 
 private:
     void drawRectangle(Position pos, Size size, Color color) const;
