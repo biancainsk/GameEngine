@@ -42,7 +42,7 @@ void Game::restart()
     m_fastEnemySpawner->reset();
 }
 
-void Game::update(float dt, const InputManager& input, const CollisionSystem& collision)
+void Game::update(float dt, const InputManager& input)
 {
     if (m_state == GameState::GameOver)
     {
@@ -62,7 +62,7 @@ void Game::update(float dt, const InputManager& input, const CollisionSystem& co
     updateEnemies(dt);
     updateBullets(dt);
 
-    handleCollisions(collision);
+    handleCollisions();
 
     removeDeadObjects();
     m_enemyWaveManager.update(dt);
@@ -157,7 +157,7 @@ void Game::handleShooting(const InputManager& input)
     }
 }
 
-void Game::handleCollisions(const CollisionSystem& collision)
+void Game::handleCollisions()
 {
     // Bullet vs Enemy
     for (auto* bullet : m_bullets)
@@ -170,7 +170,7 @@ void Game::handleCollisions(const CollisionSystem& collision)
             if (!enemy->isAlive())
                 continue;
 
-            if (collision.intersects(*bullet, *enemy))
+            if (m_collisionSystem.intersects(*bullet, *enemy))
             {
                 bullet->destroy();
                 enemy->destroy();
@@ -185,7 +185,7 @@ void Game::handleCollisions(const CollisionSystem& collision)
         if (!enemy->isAlive())
             continue;
 
-        if (collision.intersects(m_player, *enemy))
+        if (m_collisionSystem.intersects(m_player, *enemy))
         {
             m_player.destroy();
             enemy->destroy();

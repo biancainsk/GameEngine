@@ -4,6 +4,7 @@
 #include <Core/IGame.h>
 #include <Core/TextRenderer.h>
 #include <Core/Globals.h>
+#include <Systems/CollisionSystem.h>
 
 #include <Player.h>
 #include <Bullet.h>
@@ -13,7 +14,6 @@
 #include <vector>
 
 class InputManager;
-class CollisionSystem;
 class Renderer;
 class SpawnerSystem;
 
@@ -32,7 +32,7 @@ public:
     Game& operator=(const Game&) = delete;
 
     void initialize(const Size& gameBounds) override;
-    void update(float dt, const InputManager& input, const CollisionSystem& collision) override;
+    void update(float dt, const InputManager& input) override;
     void render(const Renderer& renderer) const override;
 
 private:
@@ -45,6 +45,8 @@ private:
 
     SpawnerSystem* m_classicEnemySpawner = nullptr;
     SpawnerSystem* m_fastEnemySpawner = nullptr;
+
+    CollisionSystem m_collisionSystem;
 
     WaveManager m_enemyWaveManager;
 
@@ -59,7 +61,7 @@ private:
     void renderBullets(const Renderer& renderer) const;
 
     void handleShooting(const InputManager& input);
-    void handleCollisions(const CollisionSystem& collision);
+    void handleCollisions();
     void handleSpawning(float dt);
 
     void removeDeadObjects();
